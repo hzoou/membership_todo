@@ -14,4 +14,8 @@ router.post('/item', function (req, res) {
    BOARD.insertItem(req.body.list_idx, req.body.data[0], res);
 });
 
+router.delete('/item', function (req, res) {
+    BOARD.deleteItem(req.body.item_idx, res);
+});
+
 module.exports = router;

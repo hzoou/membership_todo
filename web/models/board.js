@@ -21,6 +21,15 @@ const BOARD = {
         } catch (e) {
             res.status(400).send({ status: 'FAIL', message: '해당 item을 추가하는데 실패했습니다.'});
         }
+    },
+
+    deleteItem : async (itemIdx, res) => {
+        try {
+            await board.deleteItem(itemIdx);
+            res.send({ status: 'SUCCESS', message: '해당 item을 삭제했습니다.'});
+        } catch (e) {
+            res.status(400).send({ status: 'FAIL', message: '해당 item을 삭제하는데 실패했습니다.'});
+        }
     }
 };
 

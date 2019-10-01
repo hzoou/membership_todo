@@ -26,5 +26,14 @@ module.exports = {
                 resolve(results);
             })
         })
+    },
+
+    deleteItem : async (item_idx) => {
+        return new Promise((resolve, reject) => {
+            db.query(`DELETE FROM ITEM WHERE idx = ${item_idx}`, function (err, results) {
+                if (err) reject(err);
+                resolve(results);
+            })
+        })
     }
 };
