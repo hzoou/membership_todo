@@ -17,5 +17,14 @@ module.exports = {
                 resolve(results);
             })
         });
+    },
+
+    insertItem : async (title, content, list_idx) => {
+        return new Promise((resolve, reject) => {
+            db.query(`INSERT INTO ITEM (title, content, LIST_idx) VALUES (\'${title}\', \'${content}\', ${list_idx})`, function (err, results) {
+                if (err) reject(err);
+                resolve(results);
+            })
+        })
     }
 };

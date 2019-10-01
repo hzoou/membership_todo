@@ -10,4 +10,8 @@ router.get('/:user_id', function (req, res) {
     BOARD.getBoardIdxByUserId(req.params.user_id, res);
 });
 
+router.post('/item', function (req, res) {
+   BOARD.insertItem(req.body.list_idx, req.body.data[0], res);
+});
+
 module.exports = router;
