@@ -1,0 +1,21 @@
+const db = require('../database/connection').connect();
+
+module.exports = {
+    getBoardIdxByUserId : async (user_id) => {
+        return new Promise((resolve) => {
+            db.query(`SELECT BOARD.idx FROM BOARD, USER WHERE BOARD.idx = (SELECT USER.idx FROM USER WHERE USER.id = \'${user_id}\')`, function (err, results) {
+                if (err) throw err;
+                resolve(results);
+            });
+        });
+    },
+
+    getAllListByBoard : async (board_idx) => {
+        return new Promise((resolve) => {
+            db.query(`SELECT LIST.idx as LIST_idx, ITEM.idx as ITEM_idx, LIST.title as LIST_title, ITEM.title as ITEM_title FROM BOARD, LIST, ITEM WHERE ITEM.list_idx = LIST.idx AND BOARD.idx = ${board_idx}`, function (err, results) {
+                if (err) throw err;
+                resolve(results);
+            })
+        });
+    }
+};
