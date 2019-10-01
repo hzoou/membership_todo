@@ -35,5 +35,14 @@ module.exports = {
                 resolve(results);
             })
         })
-    }
+    },
+
+    updateItem : async (title, content, item_idx) => {
+        return new Promise((resolve, reject) => {
+            db.query(`UPDATE ITEM SET title = \'${title}\', content = \'${content}\' WHERE idx = ${item_idx}`, function (err, results) {
+                if (err) reject(err);
+                resolve(results);
+            })
+        })
+    },
 };

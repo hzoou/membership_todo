@@ -18,4 +18,8 @@ router.delete('/item', function (req, res) {
     BOARD.deleteItem(req.body.item_idx, res);
 });
 
+router.put('/item', function (req, res) {
+   BOARD.updateItem(req.body.item_idx, req.body.data[0], res);
+});
+
 module.exports = router;

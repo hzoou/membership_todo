@@ -32,7 +32,17 @@ const BOARD = {
         } catch (e) {
             res.status(400).send({ status: 'FAIL', message: '해당 item을 삭제하는데 실패했습니다.'});
         }
-    }
+    },
+
+    updateItem : async (itemIdx, data, res) => {
+        try {
+            const result = await board.updateItem(data.title, data.content, itemIdx);
+            if (!result.affectedRows) throw new Error();
+            res.send({ status: 'SUCCESS', message: '해당 item을 수정했습니다.'});
+        } catch (e) {
+            res.status(400).send({ status: 'FAIL', message: '해당 item을 수정하는데 실패했습니다.'});
+        }
+    },
 };
 
 module.exports = BOARD;
