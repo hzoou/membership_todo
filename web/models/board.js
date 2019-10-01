@@ -16,7 +16,8 @@ const BOARD = {
 
     insertItem : async (listIdx, data, res) => {
         try {
-            await board.insertItem(data.title, data.content, listIdx);
+            const result = await board.insertItem(data.title, data.content, listIdx);
+            if (!result.affectedRows) throw new Error();
             res.send({ status: 'SUCCESS', message: '해당 item을 추가했습니다.'});
         } catch (e) {
             res.status(400).send({ status: 'FAIL', message: '해당 item을 추가하는데 실패했습니다.'});
@@ -25,7 +26,8 @@ const BOARD = {
 
     deleteItem : async (itemIdx, res) => {
         try {
-            await board.deleteItem(itemIdx);
+            const result = await board.deleteItem(itemIdx);
+            if (!result.affectedRows) throw new Error();
             res.send({ status: 'SUCCESS', message: '해당 item을 삭제했습니다.'});
         } catch (e) {
             res.status(400).send({ status: 'FAIL', message: '해당 item을 삭제하는데 실패했습니다.'});
