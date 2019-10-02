@@ -12,6 +12,7 @@ const passport = require('./middlewares/passport');
 
 const indexRouter = require('./routes/index');
 const signinRouter = require('./routes/signin');
+const signupRouter = require('./routes/signup');
 const boardRouter = require('./routes/board');
 
 const app = express();
@@ -33,6 +34,7 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/signin', signinRouter);
+app.use('/signup', signupRouter);
 app.use('/board', boardRouter);
 app.get('/error', (req, res) => {
   res.send('<script type="text/javascript">alert("아이디 또는 비밀번호를 확인해주세요.");window.location.href="./signin";</script>')
