@@ -34,6 +34,7 @@ DROP TABLE IF EXISTS BOARD;
 CREATE TABLE IF NOT EXISTS `todo`.`BOARD` (
   `idx` INT NOT NULL AUTO_INCREMENT,
   `USER_idx` INT NOT NULL,
+  `anonymous` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`idx`),
   INDEX `fk_BOARD_USER_idx` (`USER_idx` ASC) VISIBLE,
   CONSTRAINT `fk_BOARD_USER`
@@ -82,24 +83,23 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `todo`.`AUTH`
+-- Table `todo`.`PERMISSION`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS AUTH;
-CREATE TABLE IF NOT EXISTS `todo`.`AUTH` (
+CREATE TABLE IF NOT EXISTS `todo`.`PERMISSION` (
   `idx` INT NOT NULL AUTO_INCREMENT,
   `USER_idx` INT NOT NULL,
   `BOARD_idx` INT NOT NULL,
   `authentic` TINYINT NOT NULL,
   PRIMARY KEY (`idx`),
-  INDEX `fk_AUTH_USER1_idx` (`USER_idx` ASC) VISIBLE,
-  INDEX `fk_AUTH_BOARD1_idx` (`BOARD_idx` ASC) VISIBLE,
+  INDEX `fk_PERMISSION_USER1_idx` (`USER_idx` ASC) VISIBLE,
+  INDEX `fk_PERMISSION_BOARD1_idx` (`BOARD_idx` ASC) VISIBLE,
   UNIQUE INDEX `USER_idx_UNIQUE` (`USER_idx` ASC) VISIBLE,
-  CONSTRAINT `fk_AUTH_USER1`
+  CONSTRAINT `fk_PERMISSION_USER1`
     FOREIGN KEY (`USER_idx`)
     REFERENCES `todo`.`USER` (`idx`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_AUTH_BOARD1`
+  CONSTRAINT `fk_PERMISSION_BOARD1`
     FOREIGN KEY (`BOARD_idx`)
     REFERENCES `todo`.`BOARD` (`idx`)
     ON DELETE CASCADE
