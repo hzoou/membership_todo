@@ -34,6 +34,9 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/signin', signinRouter);
 app.use('/board', boardRouter);
+app.get('/error', (req, res) => {
+  res.send('<script type="text/javascript">alert("아이디 또는 비밀번호를 확인해주세요.");window.location.href="./signin";</script>')
+});
 
 app.use(function(req, res, next) {
   next(createError(404));
