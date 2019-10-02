@@ -19,6 +19,15 @@ module.exports = {
         });
     },
 
+    isAuthorizedUser : async (userIdx, boardIdx) => {
+        return new Promise((resolve, reject) => {
+            db.execute('SELECT * FROM PERMISSION WHERE USER_idx = ? AND BOARD_idx = ?', [userIdx, boardIdx], function (err, results) {
+                if (err) reject(err);
+                resolve(results);
+            })
+        })
+    },
+
     insertItem : async (title, content, list_idx) => {
         return new Promise((resolve, reject) => {
             db.execute('INSERT INTO ITEM (title, content, LIST_idx) VALUES (?, ?, ?)', [title, content, list_idx], function (err, results) {
