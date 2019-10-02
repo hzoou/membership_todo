@@ -53,5 +53,32 @@ module.exports = {
                 resolve(results);
             })
         })
+    },
+
+    insertUser : async (id, pw) => {
+        return new Promise((resolve, reject) => {
+            db.execute('INSERT INTO USER (id, pw) VALUES (?, ?)', [id, pw], function (err, results) {
+                if (err) reject(err);
+                resolve(results);
+            })
+        })
+    },
+
+    makeBoard : async (user_idx) => {
+        return new Promise((resolve, reject) => {
+            db.execute('INSERT INTO BOARD (USER_idx) VALUES (?)', [user_idx], function (err, results) {
+                if (err) reject(err);
+                resolve(results);
+            })
+        })
+    },
+
+    makeList : async (title, board_idx) => {
+       return new Promise((resolve, reject) => {
+           db.execute('INSERT INTO LIST (title, BOARD_idx) VALUES (?, ?)', [title, board_idx], function (err, results) {
+               if (err) reject(err);
+               resolve(results);
+           })
+       })
     }
 };
