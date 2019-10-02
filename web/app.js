@@ -37,7 +37,7 @@ app.use('/signin', signinRouter);
 app.use('/signup', signupRouter);
 app.use('/board', boardRouter);
 app.get('/error', (req, res) => {
-  res.send('<script type="text/javascript">alert("아이디 또는 비밀번호를 확인해주세요.");window.location.href="./signin";</script>')
+  res.send(`<script type="text/javascript">alert("${req.query.msg}");window.location.href="./${req.query.url}";</script>`)
 });
 app.get('/signout', (req, res) => {
   req.logout();
