@@ -39,10 +39,19 @@ module.exports = {
 
     updateItem : async (title, content, item_idx) => {
         return new Promise((resolve, reject) => {
-            db.query('UPDATE ITEM SET title = ?, content = ? WHERE idx = ?', [title, content, item_idx], function (err, results) {
+            db.execute('UPDATE ITEM SET title = ?, content = ? WHERE idx = ?', [title, content, item_idx], function (err, results) {
                 if (err) reject(err);
                 resolve(results);
             })
         })
     },
+
+    getUser : async (id) => {
+        return new Promise((resolve, reject) => {
+            db.execute('SELECT * FROM USER WHERE id = ?', [id], function (err, results) {
+                if (err) reject(err);
+                resolve(results);
+            })
+        })
+    }
 };
