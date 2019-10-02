@@ -17,6 +17,7 @@
     "url": "https://github.com/hzoou/membership-todo/issues"
   },
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.1.0",
