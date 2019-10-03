@@ -25,6 +25,10 @@ th {
     border-top: 1px solid;
 }
 
+tbody > tr {
+    background: white;
+}
+
 tbody > tr:hover {
     background: #ededed;
 }
