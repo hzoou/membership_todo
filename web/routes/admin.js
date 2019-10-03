@@ -18,4 +18,10 @@ router.put('/user/:idx', isAdmin, async function (req, res) {
     res.send({ status: 'SUCCESS', message: '해당 user의 권한을 수정했습니다.'});
 });
 
+router.delete('/user/:idx', isAdmin, async function (req, res) {
+    const result = await USER.deleteUser(req.params.idx);
+    if (!result) return res.send({ status: 'FAIL', message: '해당 user를 삭제하는데 실패했습니다.'});
+    res.send({ status: 'SUCCESS', message: '해당 user를 삭제했습니다.'});
+});
+
 module.exports = router;

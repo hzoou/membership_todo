@@ -26,6 +26,11 @@ const USER = {
     updateUser : async (idx, admin) => {
         const result = await user.updateUser(idx, admin);
         return result.affectedRows;
+    },
+
+    deleteUser : async (idx) => {
+        const result = await user.deleteUser(idx);
+        return result.affectedRows;
     }
 };
 

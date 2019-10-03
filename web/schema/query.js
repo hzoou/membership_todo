@@ -107,5 +107,14 @@ module.exports = {
                 resolve(results);
             })
         })
+    },
+
+    deleteUser : async (idx) => {
+        return new Promise((resolve, reject) => {
+            db.execute('DELETE FROM USER WHERE idx = ?', [idx], function (err, results) {
+                if (err) reject(err);
+                resolve(results);
+            })
+        })
     }
 };
