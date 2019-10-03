@@ -58,14 +58,14 @@
 ![image](https://i.imgur.com/Q4lroSz.png)
 
 #### API
-1. user API
-1-1. [board](https://github.com/hzoou/membership-todo/wiki/%EC%9D%BC%EB%B0%98-%EC%82%AC%EC%9A%A9%EC%9E%90-API-:-BOARD)
-1-2. [error](https://github.com/hzoou/membership-todo/wiki/일반-사용자-API-:-ERROR)
-1-3. [signin](https://github.com/hzoou/membership-todo/wiki/일반-사용자-API-:-SIGN-IN)
-1-4. [signout](https://github.com/hzoou/membership-todo/wiki/일반-사용자-API-:-SIGN-OUT)
-1-5. [signup](https://github.com/hzoou/membership-todo/wiki/일반-사용자-API-:-SIGN-UP)
-2. admin API
-2-1. [admin](https://github.com/hzoou/membership-todo/wiki/%EA%B4%80%EB%A6%AC%EC%9E%90-API-:-ADMIN)
+- user API
+  - [board](https://github.com/hzoou/membership-todo/wiki/%EC%9D%BC%EB%B0%98-%EC%82%AC%EC%9A%A9%EC%9E%90-API-:-BOARD)
+  - [error](https://github.com/hzoou/membership-todo/wiki/일반-사용자-API-:-ERROR)
+  - [signin](https://github.com/hzoou/membership-todo/wiki/일반-사용자-API-:-SIGN-IN)
+  - [signout](https://github.com/hzoou/membership-todo/wiki/일반-사용자-API-:-SIGN-OUT)
+  - [signup](https://github.com/hzoou/membership-todo/wiki/일반-사용자-API-:-SIGN-UP)
+- admin API
+  - [admin](https://github.com/hzoou/membership-todo/wiki/%EA%B4%80%EB%A6%AC%EC%9E%90-API-:-ADMIN)
 
 ### 🏠 [Homepage](https://github.com/hzoou/membership-todo#readme)
 
