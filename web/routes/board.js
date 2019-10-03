@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const BOARD = require('../models/board');
+const isLoggedIn = require('../middlewares/isLoggedIn');
 
-router.get('/', function(req, res) {
-    res.send('respond with a resource');
+router.get('/', isLoggedIn, function(req, res) {
+    res.redirect(`/board/${req.user.id}`);
 });
 
 router.get('/:user_id', async function (req, res) {
@@ -25,15 +26,15 @@ router.get('/:user_id', async function (req, res) {
     if (permission.authentic) return await BOARD.getAllListByBoard(board.idx, res);
 });
 
-router.post('/item', function (req, res) {
+router.post('/item', isLoggedIn, function (req, res) {
    BOARD.insertItem(req.body.list_idx, req.body.data[0], res);
 });
 
-router.delete('/item', function (req, res) {
+router.delete('/item', isLoggedIn, function (req, res) {
     BOARD.deleteItem(req.body.item_idx, res);
 });
 
-router.put('/item', function (req, res) {
+router.put('/item', isLoggedIn, function (req, res) {
    BOARD.updateItem(req.body.item_idx, req.body.data[0], res);
 });
 
