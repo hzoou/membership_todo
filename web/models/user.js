@@ -3,7 +3,7 @@ const crypto = require('crypto');
 
 const USER = {
     findUser : async (id) => {
-        this.user = (await user.getUser(id))[0];
+        this.user = (await user.findUser(id))[0];
         return this.user;
     },
 
@@ -17,6 +17,10 @@ const USER = {
         const resultBoard = await user.makeBoard(resultUser.insertId);
         const defaultListName = ['To Do', 'In Progress', 'Done'];
         for (const d of defaultListName) await user.makeList(d, resultBoard.insertId);
+    },
+
+    getAllUser : async () => {
+        return await user.getAllUser();
     }
 };
 

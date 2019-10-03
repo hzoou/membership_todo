@@ -55,7 +55,7 @@ module.exports = {
         })
     },
 
-    getUser : async (id) => {
+    findUser : async (id) => {
         return new Promise((resolve, reject) => {
             db.execute('SELECT * FROM USER WHERE id = ?', [id], function (err, results) {
                 if (err) reject(err);
@@ -89,5 +89,14 @@ module.exports = {
                resolve(results);
            })
        })
+    },
+    
+    getAllUser : async () => {
+        return new Promise((resolve, reject) => {
+            db.execute('SELECT idx, id, admin FROM USER', function (err, results) {
+                if (err) reject(err);
+                resolve(results);
+            })
+        })
     }
 };
