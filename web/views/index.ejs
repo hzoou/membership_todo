@@ -13,7 +13,10 @@
     </svg>
   </a>
   <div>To Do</div>
-  <% if (locals.id){ %> <span><a href="/signout">Sign Out</a></span><% } %>
+  <span>
+  <% if (locals.admin){ %><a href="/admin">Admin</a><% } %>
+  <% if (locals.id){ %><a href="/signout">Sign Out</a><% } %>
+  </span>
 </header>
 <div class="container">
   <div class="content">
