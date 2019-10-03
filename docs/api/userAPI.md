@@ -4,9 +4,9 @@
 
 #### - URI
 
-| Method | URI             | feat         |
-| ------ | --------------- | -------------|
-| GET    | /board          |              |
+| Method | URI             | feat            |
+| ------ | :-------------- | --------------- |
+| GET    | /board          |                 |
 | GET    | /board/:user_id | 보드 가져오기   |
 | POST   | /board/item     | 아이템 추가하기 |
 | DELETE | /board/item     | 아이템 삭제하기 |
@@ -202,5 +202,203 @@ PUT /board/item
 }
 ```
 
+------
+
+### signin
+
+#### - URI
+
+| Method | URI     | feat                   |
+| ------ | :------ | ---------------------- |
+| GET    | /signin | 로그인 페이지 보여주기 |
+| POST   | /signin | 로그인                 |
 
 
+
+#### - 로그인
+
+##### 시나리오
+
+1. 프론트에서 입력값 확인
+   - 입력하지 않은 항목이 있는 경우 `return alert()`
+   - 모든 항목을 입력한 경우 `POST /login` 으로 id와 pw값 req.body에 담아서 전송
+2. 백엔드에서 입력값 확인
+   - passport 사용
+   - 아이디 또는 비밀번호가 일치하지 않는 경우 `/error` 로 redirect
+   - 로그인에 성공한 경우 `/board` 로 redirect
+
+##### URI
+
+```
+POST /signin
+```
+
+##### Request
+
+```
+{
+    "id": 
+    "pw": 
+}
+```
+
+##### Response
+
+```
+{
+}
+```
+
+------
+
+### signup
+
+#### - URI
+
+| Method | URI         | feat                     |
+| ------ | :---------- | ------------------------ |
+| GET    | /signup     | 회원가입 페이지 보여주기 |
+| GET    | /signup/:id | 아이디 중복 검사         |
+| POST   | /signup     | 회원가입                 |
+
+
+
+#### - 아이디 중복검사
+
+##### URI
+
+```
+GET /signup/:id
+```
+
+##### Request
+
+```
+{}
+```
+
+##### Response
+
+```
+200 : Ok
+{
+    "status": "SUCCESS",
+    "message": "사용 가능한 아이디입니다."
+}
+```
+
+```
+200 : Ok
+{
+    "status": "FAIL",
+    "message": "이미 존재하는 아이디입니다."
+}
+```
+
+
+
+#### - 회원가입
+
+##### 시나리오
+
+1. 회원가입 완료
+   1. 유저 테이블에 가입한 회원 추가
+   2. 보드 테이블에 가입한 회원의 정보로 보드 추가
+   3. 리스트 테이블에 생성된 보드의 정보로 초기 리스트 (To Do, In Progress, Done) 추가
+   4. 모든 작업 후에 `/signin` 으로 redirect 후 passport 등록
+
+##### URI
+
+```
+POST /signin
+```
+
+##### Request
+
+```
+{
+    "id": 
+    "pw": 
+}
+```
+
+##### Response
+
+```
+{
+}
+```
+
+------
+
+### signout
+
+#### - URI
+
+| Method | URI      | feat     |
+| ------ | :------- | -------- |
+| GET    | /signout | 로그아웃 |
+
+
+
+#### - 로그아웃
+
+##### 시나리오
+
+1. req.user 저장된 user 삭제 => `req.logout()`
+2. `/` 로 redirect
+
+##### URI
+
+```
+GET /signout
+```
+
+##### Request
+
+```
+{}
+```
+
+##### Response
+
+```
+{}
+```
+
+------
+
+### error
+
+#### - URI
+
+| Method | URI    | feat        |
+| ------ | :----- | ----------- |
+| GET    | /error | 에러 페이지 |
+
+
+
+#### - 에러 페이지
+
+##### 시나리오
+
+1. req.qurey의 msg 값을 `alert(msg)`
+2.  `/req.query.url` 로 redirect
+
+##### URI
+
+```
+GET /error
+```
+
+##### Request
+
+```
+{}
+```
+
+##### Response
+
+```
+{}
+```
