@@ -53,6 +53,7 @@ class Board {
         this.listIdx = this.list.dataset.listidx;
         this.listBody = this.list.lastElementChild;
         this.listBody.prepend(this.makeItem());
+        this.attachEventAfterClickAddBtn();
     }
 
     makeItem() {
@@ -72,6 +73,36 @@ class Board {
         this.itemButtons.appendChild(this.cancelButton);
         this.itemContainer.appendChild(this.itemButtons);
         return this.itemContainer;
+    }
+
+    attachEventAfterClickAddBtn() {
+        this.addItemCancelHandler = this.addItemCancel.bind(this);
+        this.addItemCompleteHandler = this.addItemComplete.bind(this);
+        this.textArea.addEventListener('focus', this.resizeHeight);
+        this.textArea.addEventListener('keydown', this.resizeHeight);
+        this.textArea.addEventListener('keyup', this.resizeHeight);
+        this.cancelButton.addEventListener('click', this.addItemCancelHandler);
+        this.addButton.addEventListener('click', this.addItemCompleteHandler);
+    }
+
+    async addItemComplete(e) {
+        this.textArea = e.target.parentNode.parentNode.firstElementChild;
+        if (!this.textArea.textLength) return this.textArea.focus();
+        this.value = this.textArea.value.split('.');
+        let [ title, ...content ] = this.value;
+        content = content.join(".");
+        const res = await fetchAPI('/board/item', 'POST', { list_idx: this.listIdx, data: [{ title: title, content: content }]});
+        if (res.status == "SUCCESS") location.reload();
+    }
+
+    addItemCancel(e) {
+        e.target.parentNode.parentNode.remove();
+        this.add.addEventListener('click', this.addHandler);
+    }
+
+    resizeHeight(e) {
+        e.target.style.height = "1px";
+        e.target.style.height = `${18 + e.target.scrollHeight}px`;
     }
 }
 
