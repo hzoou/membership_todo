@@ -1,0 +1,32 @@
+table {
+    width: 100%;
+    text-align: center;
+    border-spacing: 0;
+    padding: 30px;
+}
+
+thead {
+    background: #24292e;
+    color: white;
+}
+
+th, td {
+    border-bottom: 1px solid;
+    padding: 15px;
+}
+
+th {
+    border-top: 1px solid;
+}
+
+tbody > tr:hover {
+    background: #ededed;
+}
+
+td > img {
+    width: 15px;
+}
+
+td > img:hover {
+    cursor: pointer;
+}
