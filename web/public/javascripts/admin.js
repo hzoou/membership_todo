@@ -11,6 +11,7 @@ class Admin {
 
     getElement() {
         this.edits = $$('.edit');
+        this.removes = $$('.remove');
     }
 
     async getUserData() {
@@ -21,6 +22,8 @@ class Admin {
     attachEvent() {
         this.editHandler = this.editRow.bind(this);
         this.edits.forEach((e) => e.addEventListener('click', this.editHandler));
+        this.removeHandler = this.removeRow.bind(this);
+        this.removes.forEach((e) => e.addEventListener('click', this.removeHandler));
     }
 
     makeUserTable() {
@@ -36,7 +39,6 @@ class Admin {
     }
 
     occurredEvent(target) {
-        target.src = "../../images/check.png";
         this.selectedRow = target.parentNode.parentNode;
         this.selectedColumns = this.selectedRow.children;
         this.userIdx = this.selectedColumns[0].textContent;
@@ -45,6 +47,7 @@ class Admin {
     editRow(e) {
         this.occurredEvent(e.target);
         this.edit = e.target;
+        this.edit.src = "../../images/check.png";
         this.edit.removeEventListener('click', this.editHandler);
         this.admin = this.selectedColumns[2].firstElementChild;
         this.checked = this.admin.checked;
@@ -57,6 +60,15 @@ class Admin {
         this.confirm = confirm('수정하시겠습니까?');
         if (!this.confirm) return;
         const res = await fetchAPI(`/admin/user/${this.userIdx}`, 'PUT', { admin: this.admin.checked});
+        if (res.status == 'SUCCESS') return location.reload();
+        alert(res.message);
+    }
+
+    async removeRow(e) {
+        this.occurredEvent(e.target);
+        this.confirm = confirm('삭제하시겠습니까?');
+        if (!this.confirm) return;
+        const res = await fetchAPI(`/admin/user/${this.userIdx}`, 'DELETE');
         if (res.status == 'SUCCESS') return location.reload();
         alert(res.message);
     }
