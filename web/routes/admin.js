@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const isAdmin = require('../middlewares/isAdmin');
 
-router.get('/', function(req, res) {
+router.get('/', isAdmin, function(req, res) {
     res.render('admin', { title: 'admin' });
 });
 
