@@ -11,6 +11,7 @@ const session = require('./middlewares/session');
 const passport = require('./middlewares/passport');
 
 const indexRouter = require('./routes/index');
+const adminRouter = require('./routes/admin');
 const signinRouter = require('./routes/signin');
 const signupRouter = require('./routes/signup');
 const boardRouter = require('./routes/board');
@@ -33,6 +34,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', indexRouter);
+app.use('/admin', adminRouter);
 app.use('/signin', signinRouter);
 app.use('/signup', signupRouter);
 app.use('/board', boardRouter);
