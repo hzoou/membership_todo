@@ -12,4 +12,10 @@ router.get('/user', isAdmin, async function (req, res) {
     res.send({ status: 'SUCCESS', data: result });
 });
 
+router.put('/user/:idx', isAdmin, async function (req, res) {
+    const result = await USER.updateUser(req.params.idx, req.body.admin);
+    if (!result) return res.send({ status: 'FAIL', message: '해당 user의 권한을 수정하는데 실패했습니다.'});
+    res.send({ status: 'SUCCESS', message: '해당 user의 권한을 수정했습니다.'});
+});
+
 module.exports = router;

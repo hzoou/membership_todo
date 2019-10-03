@@ -21,6 +21,11 @@ const USER = {
 
     getAllUser : async () => {
         return await user.getAllUser();
+    },
+
+    updateUser : async (idx, admin) => {
+        const result = await user.updateUser(idx, admin);
+        return result.affectedRows;
     }
 };
 

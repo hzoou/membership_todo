@@ -98,5 +98,14 @@ module.exports = {
                 resolve(results);
             })
         })
+    },
+
+    updateUser : async (idx, admin) => {
+        return new Promise((resolve, reject) => {
+            db.execute('UPDATE USER SET admin = ? WHERE idx = ?', [admin, idx], function (err, results) {
+                if (err) reject(err);
+                resolve(results);
+            })
+        })
     }
 };
