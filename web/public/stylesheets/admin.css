@@ -1,6 +1,5 @@
 .container {
     background: #f9f9f9;
-    height: 100%;
     padding: 50px;
 }
 
@@ -19,10 +18,6 @@ thead {
 th, td {
     border-bottom: 1px solid;
     padding: 15px;
-}
-
-th {
-    border-top: 1px solid;
 }
 
 tbody > tr {

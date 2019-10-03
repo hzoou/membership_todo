@@ -4,7 +4,7 @@ const BOARD = require('../models/board');
 const isLoggedIn = require('../middlewares/isLoggedIn');
 
 router.get('/', isLoggedIn, function(req, res) {
-    res.redirect(`/board/${req.user.id}`);
+    res.render('board', { id: (req.user) ? req.user.id : '', admin: (req.user && req.user.admin) ? true : false });
 });
 
 router.get('/:user_id', async function (req, res) {
