@@ -30,18 +30,20 @@ class Board {
     }
 
     makeList() {
+        console.log(this.listData);
         return Object.keys(this.listData).reduce((acc, data) => {
             return acc + `<div class="list" data-listidx="${this.listData[data][0].LIST_idx}">
-                <div class="list-header">
-                    <div class="list-cnt">${this.listData[data].length}</div>
-                    <div class="list-title">${this.listData[data][0].LIST_title}</div>
-                    <img class="list-add" src="/images/add.png">
-                </div>
-                <div class="list-body">
-                    ${this.listData[data].reduce((acc, cur) => {
-                            return acc + `<div class="item">${cur.ITEM_title}</div>`;
-                        }, '')
-                    }</div>
+                    <div class="list-header">
+                        <div class="list-cnt">${this.listData[data].length}</div>
+                        <div class="list-title">${this.listData[data][0].LIST_title}</div>
+                        <img class="list-add" src="/images/add.png">
+                    </div>
+                    <div class="list-body">
+                        ${this.listData[data].reduce((acc, cur) => {
+                                if (cur.ITEM_idx) return acc + `<div class="item">${cur.ITEM_title}</div>`;
+                                return acc;
+                            }, '')}
+                    </div>
                 </div>`
         }, '')
     }

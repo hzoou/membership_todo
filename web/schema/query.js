@@ -12,7 +12,7 @@ module.exports = {
 
     getAllListByBoard : async (board_idx) => {
         return new Promise((resolve, reject) => {
-            db.execute('SELECT L.idx as LIST_idx, I.idx as ITEM_idx, L.title as LIST_title, I.title as ITEM_title FROM LIST L JOIN ITEM I ON I.LIST_idx = L.idx AND L.BOARD_idx = ?', [board_idx], function (err, results) {
+            db.execute('SELECT L.idx as LIST_idx, I.idx as ITEM_idx, L.title as LIST_title, I.title as ITEM_title FROM LIST L LEFT JOIN ITEM I ON I.LIST_idx = L.idx WHERE L.BOARD_idx = ?', [board_idx], function (err, results) {
                 if (err) reject(err);
                 resolve(results);
             })
