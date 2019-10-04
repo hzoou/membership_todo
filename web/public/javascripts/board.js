@@ -37,7 +37,7 @@ class Board {
         return Object.keys(this.listData).reduce((acc, data) => {
             return acc + `<div class="list" data-listidx="${this.listData[data][0].LIST_idx}">
                     <div class="list-header">
-                        <div class="list-cnt">${this.listData[data].length}</div>
+                        <div class="list-cnt">${(this.listData[data][0].ITEM_idx) ? this.listData[data].length : 0}</div>
                         <div class="list-title">${this.listData[data][0].LIST_title}</div>
                         <img class="list-add" src="/images/add.png">
                     </div>
