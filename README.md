@@ -57,6 +57,12 @@
 #### Database Modeling
 ![image](https://i.imgur.com/Q4lroSz.png)
 
+#### .env에서 사용하는 환경변수
+> DB_HOST=127.0.0.1
+> DB_USER=remote
+> DB_PASSWORD=boostcamp2019
+> DB_NAME=todo
+
 #### API
 - user API
   - [board](https://github.com/hzoou/membership-todo/wiki/%EC%9D%BC%EB%B0%98-%EC%82%AC%EC%9A%A9%EC%9E%90-API-:-BOARD)
@@ -83,6 +89,10 @@
 > 관리자 페이지
 >
 ![](https://i.imgur.com/CdqOa54.png)
+> 보드 페이지 (진행중)
+>
+![](https://i.imgur.com/VybJdj5.png)
+
 
 ### 🏠 [Homepage](https://github.com/hzoou/membership-todo#readme)
 
