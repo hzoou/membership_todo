@@ -6,16 +6,16 @@ body {
     background: white;
     padding: 50px;
     display: flex;
+    height: calc(100% - 167px);
 }
 
 .list {
     flex: 1;
     margin: 15px;
-    min-height: 100%;
     max-height: 100%;
     padding: 15px;
-    background: #f9f9f9;
-    border: 1px solid #dad9d9;
+    background: #eff1f3;
+    border: 1px solid #e1e4e8;
     border-radius: 10px;
 }
 
@@ -24,9 +24,9 @@ body {
     height: 18px;
     border-radius: 18px;
     line-height: 18px;
-    background: gray;
+    background-color: rgba(27,31,35,.15);
     text-align: center;
-    color: white;
+    color: #24292e;
     font-size: 12px;
     margin-right: 10px;
 }
@@ -53,11 +53,11 @@ body {
 }
 
 .item {
-    background: white;
-    border: 1px solid #b1b1b1;
-    border-radius: 5px;
     padding: 15px;
     margin-top: 15px;
+    background: white;
+    border: 1px solid #e1e4e9;
+    border-radius: 5px;
 }
 
 .item-buttons {
