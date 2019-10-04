@@ -26,11 +26,14 @@ class Board {
     attachEvent() {
         this.adds = $$('.list-add');
         this.addHandler = this.addItem.bind(this);
-        this.adds.forEach((add) => add.addEventListener('click', this.addHandler))
+        this.adds.forEach((add) => add.addEventListener('click', this.addHandler));
+        this.removes = $$('.item-remove');
+        this.removeHandler = this.removeItemHandler.bind(this);
+        this.removes.forEach((remove) => remove.addEventListener('click', this.removeHandler));
+
     }
 
     makeList() {
-        console.log(this.listData);
         return Object.keys(this.listData).reduce((acc, data) => {
             return acc + `<div class="list" data-listidx="${this.listData[data][0].LIST_idx}">
                     <div class="list-header">
@@ -40,7 +43,7 @@ class Board {
                     </div>
                     <div class="list-body">
                         ${this.listData[data].reduce((acc, cur) => {
-                                if (cur.ITEM_idx) return acc + `<div class="item">${cur.ITEM_title}</div>`;
+                                if (cur.ITEM_idx) return acc + `<div class="item" data-itemidx="${cur.ITEM_idx}"><div class="item-remove">&times;</div><div>${cur.ITEM_title}</div></div>`;
                                 return acc;
                             }, '')}
                     </div>
@@ -105,6 +108,16 @@ class Board {
     resizeHeight(e) {
         e.target.style.height = "1px";
         e.target.style.height = `${18 + e.target.scrollHeight}px`;
+    }
+
+    async removeItemHandler(e) {
+        this.remove = e.target;
+        this.remove.removeEventListener('click', this.removeHandler);
+        this.itemIdx = this.remove.parentNode.dataset.itemidx;
+        this.confirm = confirm('정말 삭제하시겠습니까?');
+        if (!this.confirm) return;
+        const res = await fetchAPI('/board/item', 'DELETE', { item_idx: this.itemIdx });
+        if (res.status == "SUCCESS") location.reload();
     }
 }
 
