@@ -1,8 +1,8 @@
 const config = require('./config');
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 
 module.exports = {
-    connect: () => {
-        return mysql.createConnection(config.db);
+    pool: () => {
+        return mysql.createPool(config.db);
     }
 };
