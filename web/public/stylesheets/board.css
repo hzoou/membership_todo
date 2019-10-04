@@ -46,11 +46,16 @@ body {
     font-weight: bold;
 }
 
-.list-add {
+.list-add, .list-remove {
     height: 13px;
     width: 13px;
     margin: auto 0 auto auto;
     cursor: pointer;
+    opacity: 0.5;
+}
+
+.list-add:hover, .list-remove:hover {
+    opacity: 1;
 }
 
 .item {
@@ -111,8 +116,18 @@ textarea {
     width: fit-content;
     margin-left: auto;
     cursor: pointer;
+    opacity: 0.5;
+}
+
+.item-remove:hover {
+    opacity: 1;
 }
 
 .item-title {
     word-break: break-all;
+}
+
+.list-remove {
+    transform: rotate(45deg);
+    margin: auto 0 auto 10px;
 }

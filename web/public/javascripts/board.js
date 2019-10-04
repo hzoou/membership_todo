@@ -40,6 +40,7 @@ class Board {
                         <div class="list-cnt">${(this.listData[data][0].ITEM_idx) ? this.listData[data].length : 0}</div>
                         <div class="list-title">${this.listData[data][0].LIST_title}</div>
                         <img class="list-add" src="/images/add.png">
+                        <img class="list-remove" src="/images/add.png">                        
                     </div>
                     <div class="list-body">
                         ${this.listData[data].reduce((acc, cur) => {
@@ -64,6 +65,7 @@ class Board {
     makeItem() {
         this.itemContainer = document.createElement('div');
         this.textArea = document.createElement('textarea');
+        this.textArea.placeholder = "Enter a note";
         this.textArea.maxLength = 500;
         this.itemContainer.appendChild(this.textArea);
         this.itemButtons = document.createElement('div');
@@ -113,7 +115,7 @@ class Board {
         this.remove = e.target;
         this.remove.removeEventListener('click', this.removeHandler);
         this.itemIdx = this.remove.parentNode.dataset.itemidx;
-        this.confirm = confirm('정말 삭제하시겠습니까?');
+        this.confirm = confirm('선택하신 아이템을 삭제하시겠습니까?');
         if (!this.confirm) return;
         const res = await fetchAPI('/board/item', 'DELETE', { item_idx: this.itemIdx });
         if (res.status == "SUCCESS") return location.reload();
