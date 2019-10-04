@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const BOARD = require('../models/board');
-const isLoggedIn = require('../middlewares/isLoggedIn');
+const { isLoggedIn } = require('../middlewares/auth');
 
 router.get('/', isLoggedIn, function(req, res) {
     res.render('board', { id: (req.user) ? req.user.id : '', admin: (req.user && req.user.admin) ? true : false });
