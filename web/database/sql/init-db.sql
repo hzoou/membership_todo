@@ -85,6 +85,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `todo`.`PERMISSION`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS PERMISSION;
 CREATE TABLE IF NOT EXISTS `todo`.`PERMISSION` (
   `idx` INT NOT NULL AUTO_INCREMENT,
   `USER_idx` INT NOT NULL,
