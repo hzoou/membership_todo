@@ -55,11 +55,11 @@ module.exports = {
         }
     },
 
-    insertItem : async (title, content, list_idx) => {
+    insertItem : async (title, list_idx) => {
         const connection = await pool.getConnection(async conn => conn);
         try {
             try {
-                const [results] = await connection.execute('INSERT INTO ITEM (title, content, LIST_idx) VALUES (?, ?, ?)', [title, content, list_idx]);
+                const [results] = await connection.execute('INSERT INTO ITEM (title, LIST_idx) VALUES (?, ?)', [title, list_idx]);
                 await connection.commit();
                 return results;
             } catch (e) {

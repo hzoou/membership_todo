@@ -59,6 +59,8 @@ body {
     background: white;
     border: 1px solid #e1e4e9;
     border-radius: 5px;
+    max-height: 100px;
+    overflow: auto;
 }
 
 .item-buttons {
@@ -109,4 +111,8 @@ textarea {
     width: fit-content;
     margin-left: auto;
     cursor: pointer;
+}
+
+.item-title {
+    word-break: break-all;
 }

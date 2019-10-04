@@ -43,7 +43,7 @@ class Board {
                     </div>
                     <div class="list-body">
                         ${this.listData[data].reduce((acc, cur) => {
-                                if (cur.ITEM_idx) return acc + `<div class="item" data-itemidx="${cur.ITEM_idx}"><div class="item-remove">&times;</div><div>${cur.ITEM_title}</div></div>`;
+                                if (cur.ITEM_idx) return acc + `<div class="item" data-itemidx="${cur.ITEM_idx}"><div class="item-remove">&times;</div><div class="item-title">${cur.ITEM_title}</div></div>`;
                                 return acc;
                             }, '')}
                     </div>
@@ -94,10 +94,9 @@ class Board {
         this.textArea = e.target.parentNode.parentNode.firstElementChild;
         if (!this.textArea.textLength) return this.textArea.focus();
         this.value = this.textArea.value.split('.');
-        let [ title, ...content ] = this.value;
-        content = content.join(".");
-        const res = await fetchAPI('/board/item', 'POST', { list_idx: this.listIdx, data: [{ title: title, content: content }]});
-        if (res.status == "SUCCESS") location.reload();
+        const res = await fetchAPI('/board/item', 'POST', { list_idx: this.listIdx, data: [{ title: this.textArea.value }]});
+        if (res.status == "SUCCESS") return location.reload();
+        alert(res.message);
     }
 
     addItemCancel(e) {
@@ -117,7 +116,8 @@ class Board {
         this.confirm = confirm('정말 삭제하시겠습니까?');
         if (!this.confirm) return;
         const res = await fetchAPI('/board/item', 'DELETE', { item_idx: this.itemIdx });
-        if (res.status == "SUCCESS") location.reload();
+        if (res.status == "SUCCESS") return location.reload();
+        alert(res.message);
     }
 }
 

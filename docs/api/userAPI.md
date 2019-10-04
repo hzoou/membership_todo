@@ -38,7 +38,6 @@ GET /board/:user_id
 ##### Response
 
 ```
-200 : Ok
 {
     "status": "SUCCESS",
     "board_idx":
@@ -54,7 +53,6 @@ GET /board/:user_id
 ```
 
 ```
-400 : Bad Request
 {
     "status": "FAIL",
     "message": "해당 id는 존재하는 board가 없습니다."
@@ -86,7 +84,6 @@ POST /board/item
     "data": [
         {
             "title": 
-            "content": 
         }
     ]
 }
@@ -95,7 +92,6 @@ POST /board/item
 ##### Response
 
 ```
-200 : Ok
 {
     "status": "SUCCESS",
     "message": "해당 item을 추가했습니다."
@@ -103,7 +99,6 @@ POST /board/item
 ```
 
 ```
-400 : Bad Request
 {
     "status": "FAIL",
     "message": "해당 item을 추가하는데 실패했습니다."
@@ -138,7 +133,6 @@ DELETE /board/item
 ##### Response
 
 ```
-200 : Ok
 {
     "status": "SUCCESS",
     "message": "해당 item을 삭제했습니다."
@@ -146,7 +140,6 @@ DELETE /board/item
 ```
 
 ```
-400 : Bad Request
 {
     "status": "FAIL",
     "message": "해당 item을 삭제하는데 실패했습니다."
@@ -187,7 +180,7 @@ PUT /board/item
 ##### Response
 
 ```
-200 : Ok
+
 {
     "status": "SUCCESS",
     "message": "해당 item을 삭제했습니다."
@@ -195,7 +188,7 @@ PUT /board/item
 ```
 
 ```
-400 : Bad Request
+
 {
     "status": "FAIL",
     "message": "해당 item을 삭제하는데 실패했습니다."
@@ -245,8 +238,7 @@ POST /signin
 ##### Response
 
 ```
-{
-}
+{}
 ```
 
 ------
@@ -280,7 +272,6 @@ GET /signup/:id
 ##### Response
 
 ```
-200 : Ok
 {
     "status": "SUCCESS",
     "message": "사용 가능한 아이디입니다."
@@ -288,7 +279,6 @@ GET /signup/:id
 ```
 
 ```
-200 : Ok
 {
     "status": "FAIL",
     "message": "이미 존재하는 아이디입니다."
