@@ -12,14 +12,11 @@ router.get('/:user_id', async function (req, res) {
     if (!req.user) return res.send({ status: 'FAIL', message: '해당 보드에 접근할 권한이 없습니다. '});
     // private 보드지만 내 보드
     if (req.user.id === req.params.user_id) return await BOARD.getAllListByBoard(board.idx, res);
-    // private 보드이면서 남의 보드인데 접근 권한이 없음
     const permission = await BOARD.isAuthorizedUser(req.user.idx, board.idx);
-    console.log(permission.authentic);
+    // private 보드이면서 남의 보드인데 접근 권한이 없음
     if (!permission) return res.send({ status: 'FAIL', message: '해당 보드에 접근할 권한이 없습니다. '});
-    // private 보드이면서 남의 보드인데 접근 권한이 있는데 읽기만 가능(authentic:0)
-    if (!permission.authentic) return await BOARD.getAllListByBoardByOption(board.idx, permission.authentic, res);
-    // private 보드이면서 남의 보드인데 접근 권한이 있는데 편집도 가능(authentic:1)
-    if (permission.authentic) return await BOARD.getAllListByBoardByOption(board.idx, permission.authentic, res);
+    // private 보드이면서 남의 보드인데 접근 권한이 있음
+    return await BOARD.getAllListByBoardByOption(board.idx, permission.authentic, res);
 });
 
 router.post('/item', isLoggedIn, function (req, res) {

@@ -18,6 +18,8 @@ class Board {
         const res = await fetchAPI(`/api/board/${this.boardId}`, 'GET');
         if (res.status == 'FAIL') { alert(res.message); return self.location.href = '/'; }
         this.data = res.data;
+        if (res.authentic) this.authentic = true;
+        if (this.boardId === this.userId) this.authentic = true;
         this.listData = {};
         Object.values(this.data).forEach((data) => {
            if (!this.listData[data.LIST_idx]) this.listData[data.LIST_idx] = [];
@@ -41,12 +43,11 @@ class Board {
                     <div class="list-header">
                         <div class="list-cnt">${(this.listData[data][0].ITEM_idx) ? this.listData[data].length : 0}</div>
                         <div class="list-title">${this.listData[data][0].LIST_title}</div>
-                        <img class="list-add" src="/images/add.png">
-                        <img class="list-remove" src="/images/add.png">                        
+                        ${ (this.authentic) ? '<img class="list-add" src="/images/add.png"><img class="list-remove" src="/images/add.png">' : '' }
                     </div>
                     <div class="list-body">
                         ${this.listData[data].reduce((acc, cur) => {
-                                if (cur.ITEM_idx) return acc + `<div class="item" data-itemidx="${cur.ITEM_idx}"><div class="item-remove">&times;</div><div class="item-title">${cur.ITEM_title}</div></div>`;
+                                if (cur.ITEM_idx) return acc + `<div class="item" data-itemidx="${cur.ITEM_idx}">${ (this.authentic) ? '<div class="item-remove">&times;</div>' : '' }<div class="item-title">${cur.ITEM_title}</div></div>`;
                                 return acc;
                             }, '')}
                     </div>

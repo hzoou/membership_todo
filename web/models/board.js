@@ -13,6 +13,10 @@ const BOARD = {
         res.send({ status: 'SUCCESS', board_idx: boardIdx, data: await board.getAllListByBoard(boardIdx)});
     },
 
+    getAllListByBoardByOption : async (boardIdx, authentic, res) => {
+        res.send({ status: 'SUCCESS', board_idx: boardIdx, data: await board.getAllListByBoard(boardIdx), authentic: authentic});
+    },
+
     isAuthorizedUser : async (userIdx, boardIdx) => {
         return (await board.isAuthorizedUser(userIdx, boardIdx))[0];
     },
