@@ -10,11 +10,8 @@ const flash = require('connect-flash');
 const session = require('./middlewares/session');
 const passport = require('./middlewares/passport');
 
-const indexRouter = require('./routes/index');
-const adminRouter = require('./routes/admin');
-const signinRouter = require('./routes/signin');
-const signupRouter = require('./routes/signup');
-const boardRouter = require('./routes/board');
+const pageRouter = require('./routes/index');
+const apiRouter = require('./routes/api');
 
 const app = express();
 
@@ -33,11 +30,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', indexRouter);
-app.use('/admin', adminRouter);
-app.use('/signin', signinRouter);
-app.use('/signup', signupRouter);
-app.use('/board', boardRouter);
+app.use('/', pageRouter);
+app.use('/api', apiRouter);
+
 app.get('/error', (req, res) => {
   res.send(`<script type="text/javascript">alert("${req.query.msg}");window.location.href="./${req.query.url}";</script>`)
 });

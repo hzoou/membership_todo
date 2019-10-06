@@ -10,12 +10,14 @@ class Board {
 
     getElement() {
         this.userId = $('#userId').value;
+        this.boardId = $('#boardId').value;
         this.container = $('.container');
     }
 
     async getBoardData() {
-        const result = await fetchAPI(`/board/${this.userId}`, 'GET');
-        if (result.status == 'SUCCESS') this.data = result.data;
+        const res = await fetchAPI(`/api/board/${this.boardId}`, 'GET');
+        if (res.status == 'FAIL') { alert(res.message); return self.location.href = '/'; }
+        this.data = res.data;
         this.listData = {};
         Object.values(this.data).forEach((data) => {
            if (!this.listData[data.LIST_idx]) this.listData[data.LIST_idx] = [];
@@ -96,7 +98,7 @@ class Board {
         this.textArea = e.target.parentNode.parentNode.firstElementChild;
         if (!this.textArea.textLength) return this.textArea.focus();
         this.value = this.textArea.value.split('.');
-        const res = await fetchAPI('/board/item', 'POST', { list_idx: this.listIdx, data: [{ title: this.textArea.value }]});
+        const res = await fetchAPI('/api/board/item', 'POST', { list_idx: this.listIdx, data: [{ title: this.textArea.value }]});
         if (res.status == "SUCCESS") return location.reload();
         alert(res.message);
     }
@@ -117,7 +119,7 @@ class Board {
         this.itemIdx = this.remove.parentNode.dataset.itemidx;
         this.confirm = confirm('선택하신 아이템을 삭제하시겠습니까?');
         if (!this.confirm) return;
-        const res = await fetchAPI('/board/item', 'DELETE', { item_idx: this.itemIdx });
+        const res = await fetchAPI('/api/board/item', 'DELETE', { item_idx: this.itemIdx });
         if (res.status == "SUCCESS") return location.reload();
         alert(res.message);
     }

@@ -1,13 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { isAdmin } = require('../middlewares/auth');
-const USER = require('../models/user');
+const { isAdmin } = require('../../middlewares/auth');
+const USER = require('../../models/user');
 
 router.use(isAdmin);
 
-router.get('/', function(req, res) {
-    res.render('admin', { title: 'admin', id: req.user.id });
-});
 
 router.get('/user', async function (req, res) {
     const result = await USER.getAllUser();

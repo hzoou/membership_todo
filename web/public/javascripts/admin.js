@@ -15,7 +15,7 @@ class Admin {
     }
 
     async getUserData() {
-        const result = await fetchAPI('/admin/user', 'GET');
+        const result = await fetchAPI('/api/admin/user', 'GET');
         if (result.status == 'SUCCESS') this.data = result.data;
     }
 
@@ -59,7 +59,7 @@ class Admin {
         if (this.checked == this.admin.checked) return alert('변경된 사항이 없습니다.');
         this.confirm = confirm('수정하시겠습니까?');
         if (!this.confirm) return;
-        const res = await fetchAPI(`/admin/user/${this.userIdx}`, 'PUT', { admin: this.admin.checked});
+        const res = await fetchAPI(`/api/admin/user/${this.userIdx}`, 'PUT', { admin: this.admin.checked});
         if (res.status == 'SUCCESS') return location.reload();
         alert(res.message);
     }
@@ -68,7 +68,7 @@ class Admin {
         this.occurredEvent(e.target);
         this.confirm = confirm('삭제하시겠습니까?');
         if (!this.confirm) return;
-        const res = await fetchAPI(`/admin/user/${this.userIdx}`, 'DELETE');
+        const res = await fetchAPI(`/api/admin/user/${this.userIdx}`, 'DELETE');
         if (res.status == 'SUCCESS') return location.reload();
         alert(res.message);
     }

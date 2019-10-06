@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const passport = require('../middlewares/passport');
+const passport = require('../../middlewares/passport');
 
-router.get('/', function(req, res) {
-    res.render('signin', { title: 'sign in' });
-});
 
 router.post('/',  passport.authenticate('local', {
     successRedirect: '/',
