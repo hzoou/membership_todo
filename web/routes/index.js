@@ -6,6 +6,10 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'to do', id: (req.user) ? req.user.id : '', admin: (req.user && req.user.admin) ? true : false });
 });
 
+router.get('/mypage', isLoggedIn, function(req, res) {
+  res.render('mypage', { title: 'my page', id: (req.user) ? req.user.id : '', admin: (req.user && req.user.admin) ? true : false });
+});
+
 router.get('/board', isLoggedIn, function(req, res) {
   res.render('board', { title: 'board', id: (req.user) ? req.user.id : '', admin: (req.user && req.user.admin) ? true : false });
 });
