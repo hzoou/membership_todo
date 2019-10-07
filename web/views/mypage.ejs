@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ./link/head.ejs %>
+    <link rel="stylesheet" href="/stylesheets/admin.css" />
+    <link rel="stylesheet" href="/stylesheets/mypage.css" />
+    <script type="module" src="/javascripts/mypage.js"></script>
+</head>
+<body>
+<% include ./layout/header.ejs %>
+<div class="container">
+    <ul class="nav">
+        <li class="nav-item"><a class="active" href="#board">My Board Permissions</a></li>
+        <li class="nav-item"><a href="#my">My Permissions</a></li>
+    </ul>
+    <div class="content-container"></div>
+</div>
+</body>
+</html>

@@ -4,9 +4,16 @@ body {
 
 .container {
     background: white;
-    padding: 50px;
+    padding: 0px 50px 50px 50px;
     display: flex;
-    height: calc(100% - 167px);
+    height: calc(100% - 206px);
+}
+
+.board-title {
+    padding: 30px 70px;
+    font-size: 25px;
+    font-weight: 700;
+    color: #24292e;
 }
 
 .list {

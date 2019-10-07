@@ -31,6 +31,10 @@ const USER = {
     deleteUser : async (idx) => {
         const result = await user.deleteUser(idx);
         return result.affectedRows;
+    },
+
+    getAllUserExceptForMe : async (id) => {
+        return await user.getAllUserExceptForMe(id);
     }
 };
 

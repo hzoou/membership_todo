@@ -166,11 +166,11 @@ module.exports = {
         }
     },
 
-    updateUser : async (idx, admin) => {
+    updateUser : async (user_idx, admin) => {
         let connection;
         try {
             connection = await pool.getConnection(async conn => conn);
-            const [results] = await connection.execute('UPDATE USER SET admin = ? WHERE idx = ?', [admin, idx]);
+            const [results] = await connection.execute('UPDATE USER SET admin = ? WHERE idx = ?', [admin, user_idx]);
             await connection.commit();
             return results;
         } catch (e) {
@@ -181,11 +181,101 @@ module.exports = {
         }
     },
 
-    deleteUser : async (idx) => {
+    deleteUser : async (user_idx) => {
         let connection;
         try {
             connection = await pool.getConnection(async conn => conn);
-            const [results] = await connection.execute('DELETE FROM USER WHERE idx = ?', [idx]);
+            const [results] = await connection.execute('DELETE FROM USER WHERE idx = ?', [user_idx]);
+            await connection.commit();
+            return results;
+        } catch (e) {
+            await connection.rollback();
+            return false;
+        } finally {
+            connection.release();
+        }
+    },
+
+    getPermissionOfBoard : async (board_idx) => {
+        let connection;
+        try {
+            connection = await pool.getConnection(async conn => conn);
+            const [results] = await connection.execute('SELECT board_idx, id, authentic FROM PERMISSION JOIN USER ON USER.idx = PERMISSION.USER_idx AND PERMISSION.BOARD_idx = ?', [board_idx]);
+            await connection.commit();
+            return results;
+        } catch (e) {
+            await connection.rollback();
+            return false;
+        } finally {
+            connection.release();
+        }
+    },
+
+    updatePermissionOfBoard : async (authentic, board_idx, id) => {
+        let connection;
+        try {
+            connection = await pool.getConnection(async conn => conn);
+            const [results] = await connection.execute('UPDATE PERMISSION SET authentic = ? WHERE BOARD_idx = ? AND USER_idx = (SELECT idx FROM USER WHERE id = ?)', [authentic, board_idx, id]);
+            await connection.commit();
+            return results;
+        } catch (e) {
+            await connection.rollback();
+            return false;
+        } finally {
+            connection.release();
+        }
+    },
+
+    deletePermissionOfBoard : async (board_idx, id) => {
+        let connection;
+        try {
+            connection = await pool.getConnection(async conn => conn);
+            const [results] = await connection.execute('DELETE FROM PERMISSION WHERE BOARD_idx = ? AND USER_idx = (SELECT idx FROM USER WHERE id = ?)', [board_idx, id]);
+            await connection.commit();
+            return results;
+        } catch (e) {
+            await connection.rollback();
+            return false;
+        } finally {
+            connection.release();
+        }
+    },
+
+    insertPermissionOfBoard : async (authentic, board_idx, id) => {
+        let connection;
+        try {
+            connection = await pool.getConnection(async conn => conn);
+            const [results] = await connection.execute('INSERT INTO PERMISSION (authentic, BOARD_idx, USER_idx) VALUES (?, ?, (SELECT idx FROM USER WHERE id = ?))', [authentic, board_idx, id]);
+            await connection.commit();
+            return results;
+        } catch (e) {
+            await connection.rollback();
+            return false;
+        } finally {
+            connection.release();
+        }
+    },
+
+    getAllUserExceptForMe : async (id) => {
+        let connection;
+        try {
+            connection = await pool.getConnection(async conn => conn);
+            const [results] = await connection.execute('SELECT id FROM USER WHERE !(id = ?)', [id]);
+            await connection.commit();
+            return results;
+        } catch (e) {
+            await connection.rollback();
+            return false;
+        } finally {
+            connection.release();
+        }
+    },
+
+    getPermissionOfUser : async (id) => {
+        let connection;
+        try {
+            connection = await pool.getConnection(async conn => conn);
+            const [results] = await connection.execute('SELECT U.id, P.authentic FROM PERMISSION P JOIN BOARD B JOIN USER U ON B.USER_idx = U.idx ON B.idx = P.BOARD_idx WHERE P.USER_idx = (SELECT idx FROM USER WHERE id = ?)', [id]);
             await connection.commit();
             return results;
         } catch (e) {

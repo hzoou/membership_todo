@@ -1,0 +1,111 @@
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    padding: 0;
+    display: flex;
+    min-height: calc(100% - 67px);
+}
+
+.nav {
+    margin: 0;
+    min-width: 200px;
+    list-style: none;
+    padding: 0;
+    background-color: #e7e7e7;
+}
+
+.nav-item {
+    cursor: pointer;
+}
+
+.nav-item > a {
+    display: block;
+    text-align: left;
+    padding: 1rem;
+    color: #24292e;
+    text-decoration: none;
+}
+
+.nav-item > a:hover {
+    background: #ffffff75;
+    color: #24292e;
+}
+.nav-item > .active {
+    background: #24292d85;
+    color: white;
+}
+
+.content-container {
+    width: 100%;
+    padding: 25px;
+}
+
+td, th {
+    max-width: 0px;
+}
+
+input[type=radio] {
+    margin-right: 10px;
+}
+
+td > label {
+    margin-left: 15px;
+}
+
+td > a {
+    cursor: pointer;
+    color: black;
+    font-weight: 900;
+    text-decoration: underline;
+}
+
+.add {
+    float: right;
+    margin-right: 30px;
+    width: 30px;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.add:hover {
+    opacity: 1;
+}
+
+.search {
+    background-image: url(https://i.imgur.com/FENzSxi.png);
+    background-size: 12px;
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 36px;
+    font-size: 15px;
+    padding: 10px 20px 10px 35px;
+    border: 1px solid #24292e;
+    border-radius: 5px;
+    outline: none;
+}
+
+.userList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.userList > li {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: -1px;
+    background-color: #fcfcfc;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 13px;
+    color: black;
+    display: none;
+    cursor: pointer;
+}
+
+.userList > li:hover {
+    background-color: #eee;
+}

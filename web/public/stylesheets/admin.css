@@ -24,14 +24,16 @@ tbody > tr {
     background: white;
 }
 
-tbody > tr:hover {
+tbody > tr:hover:not(.newRow) {
     background: #ededed;
 }
 
 td > img {
     width: 15px;
+    cursor: pointer;
+    opacity: 0.5;
 }
 
 td > img:hover {
-    cursor: pointer;
+    opacity: 1;
 }

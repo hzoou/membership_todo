@@ -50,6 +50,11 @@ header > span > a:hover{
     text-decoration: underline;
 }
 
+.header-id {
+    font-size: 12px;
+    font-weight: 100;
+}
+
 .container {
     padding: 100px;
     height: calc(100% - 267px);

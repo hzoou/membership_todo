@@ -5,7 +5,6 @@ const USER = require('../../models/user');
 
 router.use(isAdmin);
 
-
 router.get('/user', async function (req, res) {
     const result = await USER.getAllUser();
     res.send({ status: 'SUCCESS', data: result });
