@@ -9,11 +9,15 @@ router.use(isLoggedIn);
 router.get('/permission/board', async function (req, res) {
     const board = await BOARD.getBoardIdxByUserId(req.user.id);
     const userList = await USER.getAllUserExceptForMe(req.user.id);
-    await BOARD.getPermissionOfBoard(req.user.id, board.idx, userList, res);
+    await BOARD.getPermissionOfBoard(req.user.id, board.idx, board.private, userList, res);
 });
 
 router.post('/permission/board', function (req, res) {
     BOARD.insertPermissionOfBoard(req.body.authentic, req.body.boardIdx, req.body.id, res);
+});
+
+router.put('/permission/board', function (req, res) {
+    BOARD.updatePrivateOfBoard(req.body.private, req.body.boardIdx, res);
 });
 
 router.put('/permission/board/:id', function (req, res) {

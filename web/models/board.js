@@ -52,8 +52,8 @@ const BOARD = {
         }
     },
 
-    getPermissionOfBoard : async (id, boardIdx, userList, res) => {
-        res.send({ status: 'SUCCESS', user_id: id, board_idx: boardIdx, userList: userList, data: await executor(query.GET_PERMISSION_OF_BOARD, [boardIdx])});
+    getPermissionOfBoard : async (id, boardIdx, private, userList, res) => {
+        res.send({ status: 'SUCCESS', user_id: id, board_idx: boardIdx, private: private, userList: userList, data: await executor(query.GET_PERMISSION_OF_BOARD, [boardIdx])});
     },
 
     updatePermissionOfBoard : async (authentic, boardIdx, id, res) => {
@@ -88,6 +88,16 @@ const BOARD = {
 
     getPermissionOfUser : async (id, res) => {
         res.send({ status: 'SUCCESS', data: await executor(query.GET_PERMISSION_OF_USER, [id])});
+    },
+
+    updatePrivateOfBoard : async (board_private, boardIdx, res) => {
+        try {
+            const result = await executor(query.UPDATE_PRIVATE_OF_BOARD, [board_private, boardIdx]);
+            if (!result.affectedRows) throw new Error();
+            res.send({ status: 'SUCCESS', message: '해당 보드의 전체공개 여부를 수정했습니다.'});
+        } catch (e) {
+            res.send({ status: 'FAIL', message: '해당 보드의 전체공개 여부를 수정하는데 실패했습니다.'});
+        }
     }
 };
 

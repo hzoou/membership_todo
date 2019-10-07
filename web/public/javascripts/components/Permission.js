@@ -7,7 +7,7 @@ class Permission {
     }
 
     render() {
-        return `${(this.board) ? '<img class="add" src="/images/add.png">' : ''}
+        return `${(this.board) ? '<div class="board-private"><span>전체 공개</span><label class="switch"><span class="slider round"></span></label></div><img class="add" src="/images/add.png">' : ''}
                 <table id="data">
                     <thead><tr class="column"><th>id</th><th>authentic</th>${ (this.board) ? '<th>edit</th><th>remove</th>' : ''}</tr></thead>
                     <tbody></tbody>
@@ -30,9 +30,18 @@ class Permission {
 
     async getPermissionData() {
         const res = await fetchAPI(`/api/mypage/permission/${this.api}`, 'GET');
-        if (res.status == 'SUCCESS') { this.data = res.data; this.userList = res.userList; this.user = res.user_id; this.boardIdx = res.board_idx }
+        if (res.status == 'SUCCESS') { this.data = res.data; this.private = res.private; this.userList = res.userList; this.user = res.user_id; this.boardIdx = res.board_idx }
         this.permittedUser = [];
         Object.values(this.data).forEach((d) => this.permittedUser.push(d.id));
+        if (this.board) this.setToggleDefault();
+    }
+
+    setToggleDefault() {
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        if (this.private) input.checked = 'checked';
+        $('.switch').prepend(input);
+        $('.switch > input').addEventListener('click', this.setBoardPrivate.bind(this));
     }
 
     attachEvent() {
@@ -56,6 +65,12 @@ class Permission {
                     </td>
                     ${ (this.board) ? '<td><img src="../../images/edit.png" class="edit"></td><td><img src="../../images/remove.png" class="remove"></td>' : ''}
                 </tr>`}, '');
+    }
+
+    async setBoardPrivate() {
+        const res = await fetchAPI('/api/mypage/permission/board', 'PUT', { private: !this.private, boardIdx: this.boardIdx });
+        if (res.status == 'SUCCESS') return location.reload();
+        alert(res.message);
     }
 
     addPermission() {
