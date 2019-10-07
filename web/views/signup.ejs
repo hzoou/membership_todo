@@ -3,6 +3,7 @@
 <head>
 <% include ./link/head.ejs %>
 <link rel="stylesheet" href="/stylesheets/sign.css" />
+<script type="module" src="/javascripts/signup.js"></script>
 </head>
 <body>
 <% include ./layout/header.ejs %>
@@ -11,13 +12,14 @@
         <img src="https://i.imgur.com/hKIyAcT.png">
         <span>Sign Up to Todo</span>
     </div>
-    <form action="/api/signup" method="post">
+    <form action="/api/signup" method="post" onsubmit="return false;">
         <% include ./layout/sign-form.ejs %>
         <div>Confirm Password</div>
         <div class="input">
-            <input type="password">
+            <input type="password" id="pw2" maxlength="20" required>
         </div>
-        <input type="submit" value="Join Us">
+        <div class="error">비밀번호가 일치하지 않습니다.</div>
+        <input type="submit" value="Join Us" id="button">
     </form>
     <div class="footer">Do you have an ID? <a href="/signin">Login on Todo</a></div>
 </div>

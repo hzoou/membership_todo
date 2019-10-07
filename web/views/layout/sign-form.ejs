@@ -1,8 +1,9 @@
 <div>User ID</div>
 <div class="input">
-    <input type="text" name="id">
+    <input type="text" name="id" id="id" onkeyup="this.value=this.value.replace(/[^a-zA-Z-_0-9]/g,'');" maxlength="15" required>
 </div>
+<div class="error">중복된 아이디입니다.</div>
 <div>Password</div>
 <div class="input">
-    <input type="password" name="pw">
+    <input type="password" name="pw" id="pw" maxlength="20" required>
 </div>

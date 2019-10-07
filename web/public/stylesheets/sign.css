@@ -88,3 +88,11 @@ input[type=submit]:hover {
   border: 1px solid #d8dee2;
   border-radius: 5px;
 }
+
+.error {
+  font-weight: 400;
+  font-size: 11px;
+  color: #c00;
+  margin: -14px 0 14px 2px;
+  display: none;
+}
