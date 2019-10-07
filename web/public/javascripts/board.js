@@ -4,6 +4,7 @@ class Board {
     async init () {
         this.getElement();
         await this.getBoardData();
+        this.makeTitle();
         this.container.innerHTML = this.makeList();
         this.attachEvent();
     }
@@ -25,6 +26,13 @@ class Board {
            if (!this.listData[data.LIST_idx]) this.listData[data.LIST_idx] = [];
            this.listData[data.LIST_idx].push(data);
         });
+    }
+
+    makeTitle() {
+        this.div = document.createElement('div');
+        this.div.className = 'board-title';
+        this.div.innerText = `Welcome to ${this.boardId}'s board!`;
+        this.container.before(this.div);
     }
 
     attachEvent() {
