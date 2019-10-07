@@ -1,5 +1,5 @@
 const query = require('./query');
-const executor = require('./executor');
+const executor = require('./sqlExecutor');
 const crypto = require('crypto');
 
 const USER = {
