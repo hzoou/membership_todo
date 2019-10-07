@@ -1,9 +1,10 @@
-const user = require('../schema/query');
+const query = require('./query');
+const executor = require('./executor');
 const crypto = require('crypto');
 
 const USER = {
     findUser : async (id) => {
-        this.user = (await user.findUser(id))[0];
+        this.user = (await executor(query.FIND_USER, [id]))[0];
         return this.user;
     },
 
@@ -13,28 +14,28 @@ const USER = {
 
     insertUser : async (id, pw) => {
         pw = crypto.createHash('sha512').update(pw).digest('base64');
-        const resultUser = await user.insertUser(id, pw);
-        const resultBoard = await user.makeBoard(resultUser.insertId);
+        const resultUser = await executor(query.INSERT_USER, [id, pw]);
+        const resultBoard = await executor(query.MAKE_BOARD, [resultUser.insertId]);
         const defaultListName = ['To Do', 'In Progress', 'Done'];
-        for (const d of defaultListName) await user.makeList(d, resultBoard.insertId);
+        for (const name of defaultListName) await executor(query.MAKE_LIST, [name, resultBoard.insertId]);
     },
 
     getAllUser : async () => {
-        return await user.getAllUser();
+        return await executor(query.GET_ALL_USER);
     },
 
     updateUser : async (idx, admin) => {
-        const result = await user.updateUser(idx, admin);
+        const result = await executor(query.UPDATE_USER, [admin, idx]);
         return result.affectedRows;
     },
 
     deleteUser : async (idx) => {
-        const result = await user.deleteUser(idx);
+        const result = await executor(query.DELETE_USER, [idx]);
         return result.affectedRows;
     },
 
     getAllUserExceptForMe : async (id) => {
-        return await user.getAllUserExceptForMe(id);
+        return await executor(query.GET_ALL_USER_EXCEPT_FOR_ME, [id]);
     }
 };
 
