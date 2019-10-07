@@ -149,3 +149,29 @@ INSERT INTO LOG (user_id, BOARD_idx, item_title, target, action) VALUES ('admin'
 INSERT INTO LOG (user_id, BOARD_idx, item_title, target, action) VALUES ('admin', 1, 'api 설계', 'In Progress', 0);
 INSERT INTO LOG (user_id, BOARD_idx, item_title, target, action) VALUES ('admin', 1, '테이블 설계', 'Done', 0);
 INSERT INTO LOG (user_id, BOARD_idx, item_title, target, action) VALUES ('admin', 1, '백엔드', 'In Progress', 0);
+
+INSERT INTO USER (id, pw, admin) VALUES ('hzoou', '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', 0);
+INSERT INTO BOARD (USER_idx) VALUES (2);
+INSERT INTO LIST (title, BOARD_idx) VALUES ('To Do', 2);
+INSERT INTO LIST (title, BOARD_idx) VALUES ('In Progress', 2);
+INSERT INTO LIST (title, BOARD_idx) VALUES ('Done', 2);
+INSERT INTO ITEM (title, LIST_idx) VALUES ('공부하기', 4);
+INSERT INTO ITEM (title, LIST_idx) VALUES ('밥먹기', 5);
+INSERT INTO ITEM (title, LIST_idx) VALUES ('놀기', 6);
+INSERT INTO ITEM (title, LIST_idx) VALUES ('잠자기', 5);
+INSERT INTO LOG (user_id, BOARD_idx, item_title, target, action) VALUES ('hzoou', 2, '공부하기', 'To Do', 0);
+INSERT INTO LOG (user_id, BOARD_idx, item_title, target, action) VALUES ('hzoou', 2, '밥먹기', 'In Progress', 0);
+INSERT INTO LOG (user_id, BOARD_idx, item_title, target, action) VALUES ('hzoou', 2, '놀기', 'Done', 0);
+INSERT INTO LOG (user_id, BOARD_idx, item_title, target, action) VALUES ('hzoou', 2, '잠자기', 'In Progress', 0);
+
+INSERT INTO USER (id, pw, admin) VALUES ('lallaheee', '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', 0);
+INSERT INTO BOARD (USER_idx) VALUES (3);
+INSERT INTO LIST (title, BOARD_idx) VALUES ('To Do', 3);
+INSERT INTO LIST (title, BOARD_idx) VALUES ('In Progress', 3);
+INSERT INTO LIST (title, BOARD_idx) VALUES ('Done', 3);
+INSERT INTO ITEM (title, LIST_idx) VALUES ('수영하기', 7);
+INSERT INTO ITEM (title, LIST_idx) VALUES ('orm 만들기', 8);
+INSERT INTO ITEM (title, LIST_idx) VALUES ('마라탕 먹기', 9);
+INSERT INTO LOG (user_id, BOARD_idx, item_title, target, action) VALUES ('lallaheee', 3, '수영하기', 'To Do', 0);
+INSERT INTO LOG (user_id, BOARD_idx, item_title, target, action) VALUES ('lallaheee', 3, 'orm 만들기', 'In Progress', 0);
+INSERT INTO LOG (user_id, BOARD_idx, item_title, target, action) VALUES ('lallaheee', 3, '마라탕 먹기', 'Done', 0);
