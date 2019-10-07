@@ -5,8 +5,11 @@
         </svg>
     </a>
     <div><%= title.toUpperCase() %></div>
+    <div class="header-id"><% if (locals.id) { %>hi! <%= locals.id%><%}%></div>
     <span>
         <% if (locals.admin){ %><a href="/admin">Admin</a><% } %>
+        <% if (locals.id && locals.title !== 'my page'){ %><a href="/mypage#board">My Page</a><% } %>
+        <% if (locals.id && locals.title === 'my page'){ %><a href="/board">Board</a><% } %>
         <% if (locals.id){ %><a href="/signout">Sign Out</a><% } %>
     </span>
 </header>
