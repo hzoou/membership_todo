@@ -44,7 +44,7 @@ const BOARD = {
 
     updateItem : async (itemIdx, data, res) => {
         try {
-            const result = await executor(query.UPDATE_ITEM, [data.title, data.content, itemIdx]);
+            const result = await executor(query.UPDATE_ITEM, [data.title, itemIdx]);
             if (!result.affectedRows) throw new Error();
             res.send({ status: 'SUCCESS', message: '해당 item을 수정했습니다.'});
         } catch (e) {

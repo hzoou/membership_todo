@@ -5,7 +5,7 @@ module.exports = {
     MAKE_LIST: 'INSERT INTO LIST (title, BOARD_idx) VALUES (?, ?)',
     INSERT_ITEM: 'INSERT INTO ITEM (title, LIST_idx) VALUES (?, ?)',
     DELETE_ITEM: 'DELETE FROM ITEM WHERE idx = ?',
-    UPDATE_ITEM: 'UPDATE ITEM SET title = ?, content = ? WHERE idx = ?',
+    UPDATE_ITEM: 'UPDATE ITEM SET title = ? WHERE idx = ?',
     IS_AUTHORIZED_USER: 'SELECT * FROM PERMISSION WHERE USER_idx = ? AND BOARD_idx = ?',
     FIND_USER: 'SELECT * FROM USER WHERE id = ?',
     GET_ALL_USER: 'SELECT idx, id, admin FROM USER',
