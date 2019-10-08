@@ -73,6 +73,8 @@ body {
     border-radius: 5px;
     max-height: 100px;
     overflow: auto;
+    cursor: pointer;
+    display: flex;
 }
 
 .item-buttons {
@@ -121,7 +123,6 @@ textarea {
 
 .item-remove {
     width: fit-content;
-    margin-left: auto;
     cursor: pointer;
     opacity: 0.5;
 }
@@ -131,10 +132,21 @@ textarea {
 }
 
 .item-title {
+    flex: 1;
+    padding: 0 12px;
     word-break: break-all;
 }
 
 .list-remove {
     transform: rotate(45deg);
     margin: auto 0 auto 10px;
+}
+
+.note-img {
+    width: 17px;
+    height: 17px;
+}
+
+.ghost {
+    opacity: .5;
 }

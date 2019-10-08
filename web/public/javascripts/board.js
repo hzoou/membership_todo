@@ -42,7 +42,7 @@ class Board {
         this.removes = $$('.item-remove');
         this.removeHandler = this.removeItemHandler.bind(this);
         this.removes.forEach((remove) => remove.addEventListener('click', this.removeHandler));
-
+        this.attachEventToDragAndDrop();
     }
 
     makeList() {
@@ -55,7 +55,7 @@ class Board {
                     </div>
                     <div class="list-body">
                         ${this.listData[data].reduce((acc, cur) => {
-                                if (cur.ITEM_idx) return acc + `<div class="item" data-itemidx="${cur.ITEM_idx}">${ (this.authentic) ? '<div class="item-remove">&times;</div>' : '' }<div class="item-title">${cur.ITEM_title}</div></div>`;
+                                if (cur.ITEM_idx) return acc + `<div class="item" draggable="true" data-itemidx="${cur.ITEM_idx}"><img class="note-img" draggable="false" src="/images/note.png"><div class="item-title" draggable="false" >${cur.ITEM_title}</div>${ (this.authentic) ? '<div class="item-remove" draggable="false" >&times;</div>' : '' }</div>`;
                                 return acc;
                             }, '')}
                     </div>
@@ -131,6 +131,35 @@ class Board {
         const res = await fetchAPI('/api/board/item', 'DELETE', { item_idx: this.itemIdx });
         if (res.status == "SUCCESS") return location.reload();
         alert(res.message);
+    }
+
+    attachEventToDragAndDrop() {
+        this.listBodys = $$('.list-body');
+        this.dragOverHandler = this.dragItemOver.bind(this);
+        this.dragEndHandler = this.dragItemEnd.bind(this);
+        this.listBodys.forEach((listBody) => listBody.addEventListener('dragstart', this.dragItemStart.bind(this), false));
+        this.listBodys.forEach((listBody) => listBody.addEventListener('dragover', this.dragOverHandler, false));
+        this.listBodys.forEach((listBody) => listBody.addEventListener('dragend', this.dragEndHandler, false));
+    }
+
+    dragItemStart(e) {
+        this.listBody = e.currentTarget;
+        this.item = e.target;
+        this.dragEndHandler = this.dragItemEnd.bind(this);
+        this.listBody.addEventListener('dragend', this.dragEndHandler, false);
+        this.item.classList.add('ghost');
+    }
+
+    dragItemOver(e) {
+        e.preventDefault();
+        this.listBody = e.currentTarget;
+        if (e.target.classList.contains('item')) this.listBody.insertBefore(this.item, e.target);
+        if (e.target.classList.contains('list-body')) this.listBody.appendChild(this.item);
+    }
+
+    dragItemEnd(e) {
+        e.preventDefault();
+        e.target.classList.remove('ghost');
     }
 }
 
