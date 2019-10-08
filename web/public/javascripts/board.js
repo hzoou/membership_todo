@@ -40,8 +40,11 @@ class Board {
         this.addHandler = this.addItem.bind(this);
         this.adds.forEach((add) => add.addEventListener('click', this.addHandler));
         this.removes = $$('.item-remove');
-        this.removeHandler = this.removeItemHandler.bind(this);
-        this.removes.forEach((remove) => remove.addEventListener('click', this.removeHandler));
+        this.removeHandler = this.removeItem.bind(this);
+        this.removes.forEach((remove) => remove.addEventListener('click', this.removeItem));
+        this.titles = $$('.list-title');
+        this.editListHandler = this.editList.bind(this);
+        this.titles.forEach((title) => title.addEventListener('click', this.editListHandler));
         this.attachEventToDragAndDrop();
     }
 
@@ -122,7 +125,7 @@ class Board {
         e.target.style.height = `${18 + e.target.scrollHeight}px`;
     }
 
-    async removeItemHandler(e) {
+    async removeItem(e) {
         this.remove = e.target;
         this.remove.removeEventListener('click', this.removeHandler);
         this.itemIdx = this.remove.parentNode.dataset.itemidx;
@@ -131,6 +134,10 @@ class Board {
         const res = await fetchAPI('/api/board/item', 'DELETE', { item_idx: this.itemIdx });
         if (res.status == "SUCCESS") return location.reload();
         alert(res.message);
+    }
+
+    editList(e) {
+        console.log(e.target.textContent);
     }
 
     attachEventToDragAndDrop() {
