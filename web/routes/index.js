@@ -2,27 +2,27 @@ const express = require('express');
 const router = express.Router();
 const { isLoggedIn, isAdmin } = require('../middlewares/auth');
 
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
   res.render('index', { title: 'to do', id: (req.user) ? req.user.id : '', admin: (req.user && req.user.admin) ? true : false });
 });
 
-router.get('/mypage', isLoggedIn, function(req, res) {
+router.get('/mypage', isLoggedIn, (req, res) => {
   res.render('mypage', { title: 'my page', id: (req.user) ? req.user.id : '', admin: (req.user && req.user.admin) ? true : false });
 });
 
-router.get('/board', isLoggedIn, function(req, res) {
+router.get('/board', isLoggedIn, (req, res) => {
   res.render('board', { title: 'board', id: (req.user) ? req.user.id : '', admin: (req.user && req.user.admin) ? true : false });
 });
 
-router.get('/board/:id', function(req, res) {
+router.get('/board/:id', (req, res) => {
   res.render('board', { title: 'board', id: (req.user) ? req.user.id : '', boardId: req.params.id, admin: (req.user && req.user.admin) ? true : false });
 });
 
-router.get('/signin', function(req, res) {
+router.get('/signin', (req, res) => {
   res.render('signin', { title: 'sign in' });
 });
 
-router.get('/signup', function(req, res) {
+router.get('/signup', (req, res) => {
   res.render('signup', { title: 'sign up' });
 });
 

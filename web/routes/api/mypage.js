@@ -6,29 +6,29 @@ const USER = require('../../models/user');
 
 router.use(isLoggedIn);
 
-router.get('/permission/board', async function (req, res) {
+router.get('/permission/board', async (req, res) => {
     const board = await BOARD.getBoardIdxByUserId(req.user.id);
     const userList = await USER.getAllUserExceptForMe(req.user.id);
     await BOARD.getPermissionOfBoard(req.user.id, board.idx, board.private, userList, res);
 });
 
-router.post('/permission/board', function (req, res) {
+router.post('/permission/board', (req, res) => {
     BOARD.insertPermissionOfBoard(req.body.authentic, req.body.boardIdx, req.body.id, res);
 });
 
-router.put('/permission/board', function (req, res) {
+router.put('/permission/board', (req, res) => {
     BOARD.updatePrivateOfBoard(req.body.private, req.body.boardIdx, res);
 });
 
-router.put('/permission/board/:id', function (req, res) {
+router.put('/permission/board/:id', (req, res) => {
     BOARD.updatePermissionOfBoard(req.body.authentic, req.body.boardIdx, req.params.id, res);
 });
 
-router.delete('/permission/board/:id', function (req, res) {
+router.delete('/permission/board/:id', (req, res) => {
     BOARD.deletePermissionOfBoard(req.body.boardIdx, req.params.id, res);
 });
 
-router.get('/permission/my', async function (req, res) {
+router.get('/permission/my', async (req, res) => {
     await BOARD.getPermissionOfUser(req.user.id, res);
 });
 

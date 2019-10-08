@@ -3,11 +3,11 @@ const passport = require('passport');
 const crypto = require('crypto');
 const LocalStrategy = require('passport-local').Strategy;
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
-passport.deserializeUser(async function(id, done) {
+passport.deserializeUser(async (id, done) => {
     const user = await USER.findUser(id);
     done(null, user);
 });
