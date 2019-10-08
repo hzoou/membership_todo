@@ -39,7 +39,7 @@ class Permission {
     setToggleDefault() {
         const input = document.createElement('input');
         input.type = 'checkbox';
-        if (this.private) input.checked = 'checked';
+        if (!this.private) input.checked = 'checked';
         $('.switch').prepend(input);
         $('.switch > input').addEventListener('click', this.setBoardPrivate.bind(this));
     }

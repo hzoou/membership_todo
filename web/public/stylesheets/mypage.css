@@ -120,6 +120,8 @@ td > a {
     font-size: 14px;
     line-height: 14px;
     margin-right: 15px;
+    font-weight: normal;
+    color: black;
 }
 
 .switch {
@@ -130,7 +132,7 @@ td > a {
     top: 1px;
 }
 
-.switch input {
+.switch > input {
     opacity: 0;
     width: 0;
     height: 0;
@@ -159,7 +161,7 @@ td > a {
 }
 
 input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #24292e;
 }
 
 input:focus + .slider {
@@ -170,7 +172,6 @@ input:checked + .slider:before {
     transform: translateX(13px);
 }
 
-/* Rounded sliders */
 .slider.round {
     border-radius: 34px;
 }
