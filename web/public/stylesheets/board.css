@@ -50,8 +50,12 @@ body {
 }
 
 .list-title {
+    width: 315px;
+    text-overflow: ellipsis;
     font-weight: bold;
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .list-add, .list-remove {

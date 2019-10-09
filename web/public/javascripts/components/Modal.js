@@ -7,16 +7,17 @@ class Modal {
         this.idx = Object.values(target.dataset).pop();
         this.modalContainer = $('.modal');
         this.modalContainer.innerHTML = this.render();
-        this.modalContainer.style.display = 'block';
+        this.modalContainer.style.visibility = 'visible';
+        this.modalContainer.style.opacity = 1;
         this.init();
     }
 
     render() {
         return `<div class="modal-container">
-                    <div class="modal-title"><div>${(this.list) ? `Edit ${this.title}` : 'Edit item'}</div><span class="modal-close">&times;</span></div>
+                    <div class="modal-title"><div>${(this.list) ? `Edit ${this.title}` : 'Edit item'}<span class="modal-close">&times;</span></div></div>
                     <div class="modal-content">
                         <div class="modal-type">${(this.list) ? 'List title' : 'Item title'}</div>
-                        <textarea ${(this.list) ? 'style="resize: none;" maxLength="50"' : 'maxLength="500"'}>${this.title}</textarea>
+                        <textarea ${(this.list) ? 'style="resize: none; white-space: nowrap;" maxLength="50"' : 'maxLength="500"'}>${this.title}</textarea>
                         <button class="modal-submit">${(this.list) ? 'Update List' : 'Save item'}</button>
                     </div>
                 </div>`;
@@ -42,7 +43,8 @@ class Modal {
 
     clickCloseButton() {
         this.modalContainer.innerHTML = '';
-        this.modalContainer.style.display = "none";
+        this.modalContainer.style.visibility = 'hidden';
+        this.modalContainer.style.opacity = 0;
     }
 
     checkTextareaValue() {
