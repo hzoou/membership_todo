@@ -1,0 +1,65 @@
+.log {
+    height: 100%;
+    width: 0;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #FFF;
+    overflow-x: hidden;
+    transition: 0.5s;
+    border-left: 1px solid #E1E4E8;
+}
+
+.log > div > img {
+    width: 13px;
+    height: 13px;
+}
+
+.log-header, .log-body {
+    width: 360px;
+    padding: 10px;
+    background: #F6F8FA;
+    border-bottom: 1px solid #E1E4E8;
+}
+
+.log-title {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.log-close {
+    float: right;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.activities {
+    width: 360px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.activity {
+    padding: 20px;
+    border-bottom: 1px solid #E1E4E8;
+}
+
+.log-content {
+    display: block;
+    color: #24292e;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.log-content > a {
+    color: #2B65CF;
+    cursor: pointer;
+}
+
+.log-time {
+    display: block;
+    color: #6a737d;
+    font-size: 12px;
+}
