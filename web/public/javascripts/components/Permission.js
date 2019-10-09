@@ -7,7 +7,7 @@ class Permission {
     }
 
     render() {
-        return `${(this.board) ? '<div class="board-private"><span>전체 공개</span><label class="switch"><span class="slider round"></span></label></div><img class="add" src="/images/add.png">' : ''}
+        return `${(this.board) ? '<div class="board-private"><span class="public">전체 공개</span><label class="switch"><span class="slider round"></span></label><span class="alert">* 보드가 전체경우인 경우 다른 사용자에게 편집권한을 적용할 수 없습니다.</span></div><img class="add" src="/images/add.png">' : ''}
                 <table id="data">
                     <thead>
                         <tr class="column">

@@ -116,7 +116,7 @@ td > a {
     margin-top: 10px;
 }
 
-.board-private > span {
+.public {
     font-size: 14px;
     line-height: 14px;
     margin-right: 15px;
@@ -178,4 +178,10 @@ input:checked + .slider:before {
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+.alert {
+    font-size: 10px;
+    color: #444444;
+    margin-left: 15px;
 }
