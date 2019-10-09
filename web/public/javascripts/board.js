@@ -1,4 +1,5 @@
 import { $, $$, fetchAPI } from "./utils.js";
+import Modal from './components/Modal.js';
 
 class Board {
     async init () {
@@ -43,8 +44,9 @@ class Board {
         this.removeHandler = this.removeItem.bind(this);
         this.removes.forEach((remove) => remove.addEventListener('click', this.removeItem));
         this.titles = $$('.list-title');
-        this.editListHandler = this.editList.bind(this);
-        this.titles.forEach((title) => title.addEventListener('click', this.editListHandler));
+        this.titles.forEach((title) => title.addEventListener('dblclick', this.editList.bind(this)));
+        this.items = $$('.item');
+        this.items.forEach((item) => item.addEventListener('dblclick', this.editItem.bind(this)));
         this.attachEventToDragAndDrop();
     }
 
@@ -137,7 +139,11 @@ class Board {
     }
 
     editList(e) {
-        console.log(e.target.textContent);
+        new Modal(true, e.target.textContent, e.target.parentNode.parentNode);
+    }
+
+    editItem(e) {
+        new Modal(false, e.currentTarget.children[1].textContent, e.currentTarget);
     }
 
     attachEventToDragAndDrop() {
