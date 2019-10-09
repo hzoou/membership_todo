@@ -14,6 +14,10 @@ router.get('/:user_id', async (req, res) => {
     return await BOARD.getAllListByBoardByOption(board.idx, permission.authentic, res);
 });
 
+router.put('/list', isLoggedIn, (req, res) => {
+   BOARD.updateList(req.body.title, req.body.idx, res);
+});
+
 router.post('/item', isLoggedIn, (req, res) => {
    BOARD.insertItem(req.body.list_idx, req.body.data[0], res);
 });
@@ -23,7 +27,7 @@ router.delete('/item', isLoggedIn, (req, res) => {
 });
 
 router.put('/item', isLoggedIn, (req, res) => {
-   BOARD.updateItem(req.body.item_idx, req.body.data[0], res);
+   BOARD.updateItem(req.body.title, req.body.idx, res);
 });
 
 module.exports = router;

@@ -42,9 +42,9 @@ const BOARD = {
         }
     },
 
-    updateItem : async (itemIdx, data, res) => {
+    updateItem : async (title, itemIdx, res) => {
         try {
-            const result = await executor(query.UPDATE_ITEM, [data.title, itemIdx]);
+            const result = await executor(query.UPDATE_ITEM, [title, itemIdx]);
             if (!result.affectedRows) throw new Error();
             res.send({ status: 'SUCCESS', message: '해당 item을 수정했습니다.'});
         } catch (e) {
@@ -97,6 +97,16 @@ const BOARD = {
             res.send({ status: 'SUCCESS', message: '해당 보드의 전체공개 여부를 수정했습니다.'});
         } catch (e) {
             res.send({ status: 'FAIL', message: '해당 보드의 전체공개 여부를 수정하는데 실패했습니다.'});
+        }
+    },
+
+    updateList : async (title, listIdx, res) => {
+        try {
+            const result = await executor(query.UPDATE_LIST, [title, listIdx]);
+            if (!result.affectedRows) throw new Error();
+            res.send({ status: 'SUCCESS', message: '해당 리스트의 타이틀을 수정했습니다.'});
+        } catch (e) {
+            res.send({ status: 'FAIL', message: '해당 리스트의 타이틀을 수정하는데 실패했습니다.'});
         }
     }
 };

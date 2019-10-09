@@ -3,6 +3,7 @@ module.exports = {
     GET_ALL_LIST_BY_BOARD: 'SELECT L.idx as LIST_idx, I.idx as ITEM_idx, L.title as LIST_title, I.title as ITEM_title FROM LIST L LEFT JOIN ITEM I ON I.LIST_idx = L.idx WHERE L.BOARD_idx = ? ORDER BY I.idx DESC',
     MAKE_BOARD: 'INSERT INTO BOARD (USER_idx) VALUES (?)',
     MAKE_LIST: 'INSERT INTO LIST (title, BOARD_idx) VALUES (?, ?)',
+    UPDATE_LIST: 'UPDATE LIST SET title = ? WHERE idx = ?',
     INSERT_ITEM: 'INSERT INTO ITEM (title, LIST_idx) VALUES (?, ?)',
     DELETE_ITEM: 'DELETE FROM ITEM WHERE idx = ?',
     UPDATE_ITEM: 'UPDATE ITEM SET title = ? WHERE idx = ?',
