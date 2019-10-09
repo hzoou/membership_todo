@@ -1,0 +1,88 @@
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-container {
+    width: 440px;
+    margin: auto;
+    border: 1px solid #888;
+    background-color: #fefefe;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.27);
+}
+
+.modal-close {
+    float: right;
+    font-size: 22px;
+    color: #aaaaaa;
+}
+
+.modal-close:hover {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-title {
+    height: 25px;
+    padding: 20px;
+    background: #F6F8FA;
+    border-bottom: 1px solid #D2D5DA;
+}
+
+.modal-title > div {
+    display: inline;
+    line-height: 25px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.modal-type {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.modal-content {
+    padding: 20px;
+}
+
+.modal-content > textarea {
+    width: 100%;
+    height: 40px;
+    margin: 15px 0;
+    min-height: 40px;
+    max-height: 300px;
+    padding: 10px;
+    outline: none;
+    resize: vertical;
+    box-sizing: border-box;
+    border: 1px solid #d1d5da;
+    border-radius: 5px;
+    background-color: #fafbfc;
+}
+
+.modal-submit {
+    width: fit-content;
+    padding: 8px 15px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    background: #252A2D;
+    border: 1px solid #25292D;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-submit[disabled] {
+    cursor: default;
+    opacity: .5;
+}
