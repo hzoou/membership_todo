@@ -2,11 +2,23 @@ body {
     background: white;
 }
 
+.wrap {
+    position: relative;
+    height: calc(100% - 67px);
+}
+
+.board-log {
+    width: 20px;
+    float: right;
+    cursor: pointer;
+    margin-top: 3px;
+}
+
 .container {
     background: white;
     padding: 0px 50px 50px 50px;
     display: flex;
-    height: calc(100% - 206px);
+    height: calc(100% - 139px);
 }
 
 .board-title {

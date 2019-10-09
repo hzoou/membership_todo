@@ -1,11 +1,11 @@
 import { $, $$, fetchAPI } from "./utils.js";
 import Modal from './components/Modal.js';
+import Log from './components/Log.js';
 
 class Board {
     async init () {
         this.getElement();
         await this.getBoardData();
-        this.makeTitle();
         this.container.innerHTML = this.makeList();
         this.attachEvent();
     }
@@ -14,12 +14,14 @@ class Board {
         this.userId = $('#userId').value;
         this.boardId = $('#boardId').value;
         this.container = $('.container');
+        this.log = $('.board-log');
     }
 
     async getBoardData() {
         const res = await fetchAPI(`/api/board/${this.boardId}`, 'GET');
         if (res.status == 'FAIL') { alert(res.message); return self.location.href = '/'; }
         this.data = res.data;
+        this.boardIdx = res.board_idx;
         if (res.authentic) this.authentic = true;
         if (this.boardId === this.userId) this.authentic = true;
         this.listData = {};
@@ -27,13 +29,6 @@ class Board {
            if (!this.listData[data.LIST_idx]) this.listData[data.LIST_idx] = [];
            this.listData[data.LIST_idx].push(data);
         });
-    }
-
-    makeTitle() {
-        this.div = document.createElement('div');
-        this.div.className = 'board-title';
-        this.div.innerText = `Welcome to ${this.boardId}'s board!`;
-        this.container.before(this.div);
     }
 
     attachEvent() {
@@ -47,6 +42,8 @@ class Board {
         this.titles.forEach((title) => title.addEventListener('dblclick', this.editList.bind(this)));
         this.items = $$('.item');
         this.items.forEach((item) => item.addEventListener('dblclick', this.editItem.bind(this)));
+        this.makeLogHandler = this.makeLog.bind(this);
+        this.log.addEventListener('click', this.makeLogHandler);
         this.attachEventToDragAndDrop();
     }
 
@@ -177,6 +174,11 @@ class Board {
     dragItemEnd(e) {
         e.preventDefault();
         e.target.classList.remove('ghost');
+    }
+
+    makeLog() {
+        new Log(this.boardIdx);
+        this.log.removeEventListener('click', this.makeLogHandler);
     }
 }
 
