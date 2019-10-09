@@ -9,7 +9,13 @@ class Permission {
     render() {
         return `${(this.board) ? '<div class="board-private"><span>전체 공개</span><label class="switch"><span class="slider round"></span></label></div><img class="add" src="/images/add.png">' : ''}
                 <table id="data">
-                    <thead><tr class="column"><th>id</th><th>authentic</th>${ (this.board) ? '<th>edit</th><th>remove</th>' : ''}</tr></thead>
+                    <thead>
+                        <tr class="column">
+                            <th>id</th>
+                            <th>authentic</th>
+                            ${ (this.board) ? '<th>edit</th><th>remove</th>' : ''}
+                        </tr>
+                    </thead>
                     <tbody></tbody>
                 </table>`;
     }

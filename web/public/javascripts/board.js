@@ -60,7 +60,11 @@ class Board {
                     </div>
                     <div class="list-body">
                         ${this.listData[data].reduce((acc, cur) => {
-                                if (cur.ITEM_idx) return acc + `<div class="item" draggable="true" data-itemidx="${cur.ITEM_idx}"><img class="note-img" draggable="false" src="/images/note.png"><div class="item-title" draggable="false" >${cur.ITEM_title}</div>${ (this.authentic) ? '<div class="item-remove" draggable="false" >&times;</div>' : '' }</div>`;
+                                if (cur.ITEM_idx) return acc + `<div class="item" draggable="true" data-itemidx="${cur.ITEM_idx}">
+                                                                    <img class="note-img" draggable="false" src="/images/note.png">
+                                                                    <div class="item-title" draggable="false" >${cur.ITEM_title}</div>
+                                                                    ${ (this.authentic) ? '<div class="item-remove" draggable="false" >&times;</div>' : '' }
+                                                                </div>`;
                                 return acc;
                             }, '')}
                     </div>
