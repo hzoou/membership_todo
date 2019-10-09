@@ -108,6 +108,10 @@ const BOARD = {
         } catch (e) {
             res.send({ status: 'FAIL', message: '해당 리스트의 타이틀을 수정하는데 실패했습니다.'});
         }
+    },
+
+    getLogOfBoard : async (boardIdx, res) => {
+        res.send({ status: 'SUCCESS', data: await executor(query.GET_LOG_OF_BOARD, [boardIdx])});
     }
 };
 

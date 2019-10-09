@@ -30,4 +30,8 @@ router.put('/item', isLoggedIn, (req, res) => {
    BOARD.updateItem(req.body.title, req.body.idx, res);
 });
 
+router.get('/log/:board_idx', (req, res) => {
+    BOARD.getLogOfBoard(req.params.board_idx, res);
+});
+
 module.exports = router;

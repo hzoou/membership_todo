@@ -20,4 +20,5 @@ module.exports = {
     DELETE_PERMISSION_OF_BOARD: 'DELETE FROM PERMISSION WHERE BOARD_idx = ? AND USER_idx = (SELECT idx FROM USER WHERE id = ?)',
     INSERT_PERMISSION_OF_BOARD: 'INSERT INTO PERMISSION (authentic, BOARD_idx, USER_idx) VALUES (?, ?, (SELECT idx FROM USER WHERE id = ?))',
     GET_PERMISSION_OF_USER: 'SELECT U.id, P.authentic FROM PERMISSION P JOIN BOARD B JOIN USER U ON B.USER_idx = U.idx ON B.idx = P.BOARD_idx WHERE P.USER_idx = (SELECT idx FROM USER WHERE id = ?)',
+    GET_LOG_OF_BOARD: 'SELECT user_id, item_title, source, target, action, time FROM LOG WHERE BOARD_idx = ? ORDER BY idx DESC',
 };
