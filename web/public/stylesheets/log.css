@@ -6,7 +6,6 @@
     top: 0;
     right: 0;
     background-color: #FFF;
-    overflow-x: hidden;
     transition: 0.5s;
     border-left: 1px solid #E1E4E8;
 }
@@ -14,9 +13,10 @@
 .log > div > img {
     width: 13px;
     height: 13px;
+    margin-bottom: -2px;
 }
 
-.log-header, .log-body {
+.log-header {
     width: 360px;
     padding: 10px;
     background: #F6F8FA;
@@ -50,7 +50,6 @@
     display: block;
     color: #24292e;
     font-size: 14px;
-    font-weight: 500;
 }
 
 .log-content > a {
@@ -58,8 +57,18 @@
     cursor: pointer;
 }
 
+.log-content > strong {
+    color: #2B65CF;
+    word-break: break-all;
+}
+
 .log-time {
     display: block;
     color: #6a737d;
     font-size: 12px;
+}
+
+.log-body {
+    height: calc(100% - 77px);
+    overflow: scroll;
 }

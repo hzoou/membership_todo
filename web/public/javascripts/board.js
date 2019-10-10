@@ -7,6 +7,7 @@ class Board {
         this.getElement();
         await this.getBoardData();
         this.container.innerHTML = this.makeList();
+        this.makeTitle();
         this.attachEvent();
     }
 
@@ -14,7 +15,6 @@ class Board {
         this.userId = $('#userId').value;
         this.boardId = $('#boardId').value;
         this.container = $('.container');
-        this.log = $('.board-log');
     }
 
     async getBoardData() {
@@ -31,6 +31,13 @@ class Board {
         });
     }
 
+    makeTitle() {
+        this.div = document.createElement('div');
+        this.div.className = 'board-title';
+        this.div.innerHTML = `Welcome to ${this.boardId}'s board!<img class="board-log" src="/images/menu.svg">`;
+        this.container.before(this.div);
+    }
+
     attachEvent() {
         this.adds = $$('.list-add');
         this.addHandler = this.addItem.bind(this);
@@ -39,12 +46,13 @@ class Board {
         this.removeHandler = this.removeItem.bind(this);
         this.removes.forEach((remove) => remove.addEventListener('click', this.removeItem));
         this.titles = $$('.list-title');
-        this.titles.forEach((title) => title.addEventListener('dblclick', this.editList.bind(this)));
+        if (this.authentic) this.titles.forEach((title) => title.addEventListener('dblclick', this.editList.bind(this)));
         this.items = $$('.item');
-        this.items.forEach((item) => item.addEventListener('dblclick', this.editItem.bind(this)));
+        if (this.authentic) this.items.forEach((item) => item.addEventListener('dblclick', this.editItem.bind(this)));
         this.makeLogHandler = this.makeLog.bind(this);
+        this.log = $('.board-log');
         this.log.addEventListener('click', this.makeLogHandler);
-        this.attachEventToDragAndDrop();
+        if (this.authentic) this.attachEventToDragAndDrop();
     }
 
     makeList() {
@@ -73,9 +81,11 @@ class Board {
         this.add = e.target;
         this.add.removeEventListener('click', this.addHandler);
         this.list = this.add.parentNode.parentNode;
+        this.listTitle = this.add.parentNode.querySelector('.list-title').textContent;
         this.listIdx = this.list.dataset.listidx;
         this.listBody = this.list.lastElementChild;
         this.listBody.prepend(this.makeItem());
+        this.textArea.focus();
         this.attachEventAfterClickAddBtn();
     }
 
@@ -113,7 +123,7 @@ class Board {
         this.textArea = e.target.parentNode.parentNode.firstElementChild;
         if (!this.textArea.textLength) return this.textArea.focus();
         this.value = this.textArea.value.split('.');
-        const res = await fetchAPI('/api/board/item', 'POST', { list_idx: this.listIdx, data: [{ title: this.textArea.value }]});
+        const res = await fetchAPI('/api/board/item', 'POST', { list_idx: this.listIdx, title: this.textArea.value });
         if (res.status == "SUCCESS") return location.reload();
         alert(res.message);
     }

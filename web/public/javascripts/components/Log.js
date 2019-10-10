@@ -4,7 +4,7 @@ class Log {
     constructor(boardIdx) {
         this.boardIdx = boardIdx;
         this.log = $('.log');
-        this.log.style.width = '360px';
+        this.log.style.width = '380px';
         this.log.innerHTML = this.render();
         this.init();
     }
@@ -15,11 +15,11 @@ class Log {
                     <span class="log-title">menu</span>
                     <span class="log-close">&times;</span>
                 </div>
-                <div class="log-body">
+                <div class="log-header">
                     <img src="/images/bell.svg">
                     <span class="log-title">Activity</span>
                 </div>
-                <div>
+                <div class="log-body">
                     <ul class="activities"></ul>
                 </div>`
     }
@@ -72,7 +72,7 @@ class Log {
     }
 
     showLog() {
-        this.log.style.width = '360px';
+        this.log.style.width = '380px';
     }
 }
 
