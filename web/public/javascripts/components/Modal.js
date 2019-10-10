@@ -6,7 +6,7 @@ class Modal {
         this.boardIdx = boardIdx;
         this.list = list;
         this.title = title;
-        this.idx = Object.values(target.dataset).pop();
+        this.idx = Object.values(target.dataset)[0];
         this.modalContainer = $('.modal');
         this.modalContainer.innerHTML = this.render();
         this.modalContainer.style.visibility = 'visible';

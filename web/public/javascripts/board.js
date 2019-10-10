@@ -4,6 +4,7 @@ import Log from './components/Log.js';
 
 class Board {
     async init () {
+        this.pos = 5000000;
         this.getElement();
         await this.getBoardData();
         this.container.innerHTML = this.makeList();
@@ -64,7 +65,7 @@ class Board {
                     </div>
                     <div class="list-body">
                         ${this.listData[data].reduce((acc, cur) => {
-                                if (cur.ITEM_idx) return acc + `<div class="item" draggable="true" data-itemidx="${cur.ITEM_idx}">
+                                if (cur.ITEM_idx) return acc + `<div class="item" draggable="true" data-itemidx="${cur.ITEM_idx}" data-pos="${cur.pos}">
                                                                     <img class="note-img" draggable="false" src="/images/note.png">
                                                                     <div class="item-title" draggable="false" >${cur.ITEM_title}</div>
                                                                     ${ (this.authentic) ? '<div class="item-remove" draggable="false" >&times;</div>' : '' }
@@ -80,7 +81,7 @@ class Board {
         this.add = e.target;
         this.add.removeEventListener('click', this.addHandler);
         this.list = this.add.parentNode.parentNode;
-        this.listTitle = this.add.parentNode.querySelector('.list-title').textContent;
+        this.listTitle = this.add.parentNode.querySelector('.list-title');
         this.listIdx = this.list.dataset.listidx;
         this.listBody = this.list.lastElementChild;
         this.listBody.prepend(this.makeItem());
@@ -119,10 +120,11 @@ class Board {
     }
 
     async addItemComplete(e) {
+        this.itemPos = this.getAbsolutePos(e.target.parentNode.parentNode);
         this.textArea = e.target.parentNode.parentNode.firstElementChild;
         if (!this.textArea.textLength) return this.textArea.focus();
         this.value = this.textArea.value.split('.');
-        const data = { user_id: this.userId, board_idx: this.boardIdx, list_idx: this.listIdx, title: this.textArea.value, source: null, target: this.listTitle, action: 0 };
+        const data = { user_id: this.userId, board_idx: this.boardIdx, list_idx: this.listIdx, title: this.textArea.value, source: null, pos: this.itemPos, target: this.listTitle.textContent, action: 0, adjust: this.isAdjusted };
         const res = await fetchAPI('/api/board/item', 'POST', { data: data});
         if (res.status == "SUCCESS") return location.reload();
         alert(res.message);
@@ -168,6 +170,9 @@ class Board {
     }
 
     dragItemStart(e) {
+        this.listHead = e.currentTarget.previousElementSibling;
+        this.listTitle = this.listHead.children[1].textContent;
+        this.listIdx = e.currentTarget.parentNode.dataset.listidx;
         this.listBody = e.currentTarget;
         this.item = e.target;
         this.dragEndHandler = this.dragItemEnd.bind(this);
@@ -182,14 +187,48 @@ class Board {
         if (e.target.classList.contains('list-body')) this.listBody.appendChild(this.item);
     }
 
-    dragItemEnd(e) {
+    async dragItemEnd(e) {
+        this.itemPos = this.getMovingPosition(e.target);
         e.preventDefault();
         e.target.classList.remove('ghost');
+        if (this.listIdx == e.currentTarget.parentNode.dataset.listidx) {
+            const data = { item_idx: this.itemIdx, pos: this.itemPos };
+            const res = await fetchAPI('/api/board/item/move/same', 'PUT', { data: data });
+            if (res.status == "SUCCESS") return location.reload();
+            alert(res.message);
+        } else {
+            const data = { user_id: this.userId, board_idx: this.boardIdx, item_idx: this.itemIdx, title: e.target.querySelector('.item-title').textContent, source: this.listTitle, target: e.currentTarget.previousElementSibling.children[1].textContent, action: 2, pos: this.itemPos, list_idx: e.currentTarget.parentNode.dataset.listidx };
+            const res = await fetchAPI('/api/board/item/move/other', 'PUT', { data: data });
+            if (res.status == "SUCCESS") return location.reload();
+            alert(res.message);
+        }
+    }
+
+    getMovingPosition(target) {
+        let pos = 0;
+        this.prev = target.previousElementSibling;
+        this.next = target.nextElementSibling;
+        this.itemIdx = target.dataset.itemidx;
+        if (this.prev && this.next) pos = (Number(this.prev.dataset.pos) + Number(this.next.dataset.pos)) / 2;
+        else if (this.prev) pos = Number(this.prev.dataset.pos) + 1000;
+        else if (this.next) pos = Number(this.next.dataset.pos) - 1000;
+        else pos = this.pos;
+        this.isAdjusted = (pos <= 5000);
+        return pos;
     }
 
     makeLog() {
         new Log(this.boardIdx);
         this.log.removeEventListener('click', this.makeLogHandler);
+    }
+
+    getAbsolutePos(target) {
+        let pos = 0;
+        this.next = target.nextElementSibling;
+        if (target.nextElementSibling) pos = this.next.dataset.pos / 2;
+        else pos = this.pos;
+        this.isAdjusted = (pos <= 5000);
+        return pos;
     }
 }
 
