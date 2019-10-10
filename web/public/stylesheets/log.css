@@ -5,6 +5,7 @@
     z-index: 1;
     top: 0;
     right: 0;
+    overflow: hidden;
     background-color: #FFF;
     transition: 0.5s;
     border-left: 1px solid #E1E4E8;
