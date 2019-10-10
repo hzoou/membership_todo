@@ -34,4 +34,12 @@ router.get('/log/:board_idx', (req, res) => {
     BOARD.getLogOfBoard(req.params.board_idx, res);
 });
 
+router.put('/item/move/same', isLoggedIn, (req, res) => {
+    BOARD.moveItemBySameList(req.body.data, res);
+});
+
+router.put('/item/move/other', isLoggedIn, (req, res) => {
+    BOARD.moveItemByOtherList(req.body.data, res);
+});
+
 module.exports = router;

@@ -24,12 +24,44 @@ const BOARD = {
 
     insertItem : async (data, res) => {
         try {
-            const result = await executor(query.INSERT_ITEM, [data.title, data.list_idx]);
+            const result = await executor(query.INSERT_ITEM, [data.title, data.list_idx, data.pos]);
             if (!result.affectedRows) throw new Error();
             await BOARD.insertLog(data);
+            if (data.adjust) await BOARD.adjustItemPosition(data);
             res.send({ status: 'SUCCESS', message: '해당 item을 추가했습니다.'});
         } catch (e) {
             res.send({ status: 'FAIL', message: '해당 item을 추가하는데 실패했습니다.'});
+        }
+    },
+
+    adjustItemPosition : async (data) => {
+        let maxPos = (await executor(query.GET_MAX_POS_OF_LIST, [data.list_idx]))[0]['MAX(pos)'];
+        const rows = await executor(query.GET_SPECIFIC_LIST, [data.list_idx]);
+        for (const row of rows) {
+            const result = await executor(query.UPDATE_ITEM_POS_FOR_ADJUST, [maxPos, row.idx]);
+            Number(maxPos -= 1000);
+            if (!result.affectedRows) throw new Error();
+        }
+    },
+
+    moveItemBySameList : async (data, res) => {
+        try {
+            const result = await executor(query.MOVE_ITEM_BY_SAME_LIST, [data.pos, data.item_idx]);
+            if (!result.affectedRows) throw new Error();
+            res.send({ status: 'SUCCESS', message: '해당 item의 순서를 변경했습니다.'});
+        } catch (e) {
+            res.send({ status: 'FAIL', message: '해당 item의 순서를 변경하는데 실패했습니다.'});
+        }
+    },
+
+    moveItemByOtherList : async (data, res) => {
+        try {
+            const result = await executor(query.MOVE_ITEM_BY_OTHER_LIST, [data.pos, data.list_idx, data.item_idx]);
+            if (!result.affectedRows) throw new Error();
+            await BOARD.insertLog(data);
+            res.send({ status: 'SUCCESS', message: '해당 item의 순서를 변경했습니다.'});
+        } catch (e) {
+            res.send({ status: 'FAIL', message: '해당 item의 순서를 변경하는데 실패했습니다.'});
         }
     },
 
@@ -118,7 +150,6 @@ const BOARD = {
     },
 
     insertLog : async (data) => {
-        console.log(data);
         const result = await executor(query.INSERT_LOG, [data.user_id, data.board_idx, data.title, data.source, data.target, data.action]);
         if (!result.affectedRows) throw new Error();
     }
