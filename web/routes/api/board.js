@@ -15,19 +15,19 @@ router.get('/:user_id', async (req, res) => {
 });
 
 router.put('/list', isLoggedIn, (req, res) => {
-   BOARD.updateList(req.body.title, req.body.idx, res);
+   BOARD.updateList(req.body.data, res);
 });
 
 router.post('/item', isLoggedIn, (req, res) => {
-   BOARD.insertItem(req.body.list_idx, req.body.data[0], res);
+   BOARD.insertItem(req.body.data, res);
 });
 
 router.delete('/item', isLoggedIn, (req, res) => {
-    BOARD.deleteItem(req.body.item_idx, res);
+    BOARD.deleteItem(req.body.data, res);
 });
 
 router.put('/item', isLoggedIn, (req, res) => {
-   BOARD.updateItem(req.body.title, req.body.idx, res);
+   BOARD.updateItem(req.body.data, res);
 });
 
 router.get('/log/:board_idx', (req, res) => {

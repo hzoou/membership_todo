@@ -22,30 +22,33 @@ const BOARD = {
         return (await executor(query.IS_AUTHORIZED_USER, [userIdx, boardIdx]))[0];
     },
 
-    insertItem : async (listIdx, data, res) => {
+    insertItem : async (data, res) => {
         try {
-            const result = await executor(query.INSERT_ITEM, [data.title, listIdx]);
+            const result = await executor(query.INSERT_ITEM, [data.title, data.list_idx]);
             if (!result.affectedRows) throw new Error();
+            await BOARD.insertLog(data);
             res.send({ status: 'SUCCESS', message: '해당 item을 추가했습니다.'});
         } catch (e) {
             res.send({ status: 'FAIL', message: '해당 item을 추가하는데 실패했습니다.'});
         }
     },
 
-    deleteItem : async (itemIdx, res) => {
+    deleteItem : async (data, res) => {
         try {
-            const result = await executor(query.DELETE_ITEM, [itemIdx]);
+            const result = await executor(query.DELETE_ITEM, [data.item_idx]);
             if (!result.affectedRows) throw new Error();
+            await BOARD.insertLog(data);
             res.send({ status: 'SUCCESS', message: '해당 item을 삭제했습니다.'});
         } catch (e) {
             res.send({ status: 'FAIL', message: '해당 item을 삭제하는데 실패했습니다.'});
         }
     },
 
-    updateItem : async (title, itemIdx, res) => {
+    updateItem : async (data, res) => {
         try {
-            const result = await executor(query.UPDATE_ITEM, [title, itemIdx]);
+            const result = await executor(query.UPDATE_ITEM, [data.title, data.idx]);
             if (!result.affectedRows) throw new Error();
+            await BOARD.insertLog(data);
             res.send({ status: 'SUCCESS', message: '해당 item을 수정했습니다.'});
         } catch (e) {
             res.send({ status: 'FAIL', message: '해당 item을 수정하는데 실패했습니다.'});
@@ -100,9 +103,9 @@ const BOARD = {
         }
     },
 
-    updateList : async (title, listIdx, res) => {
+    updateList : async (data, res) => {
         try {
-            const result = await executor(query.UPDATE_LIST, [title, listIdx]);
+            const result = await executor(query.UPDATE_LIST, [data.title, data.idx]);
             if (!result.affectedRows) throw new Error();
             res.send({ status: 'SUCCESS', message: '해당 리스트의 타이틀을 수정했습니다.'});
         } catch (e) {
@@ -112,6 +115,12 @@ const BOARD = {
 
     getLogOfBoard : async (boardIdx, res) => {
         res.send({ status: 'SUCCESS', data: await executor(query.GET_LOG_OF_BOARD, [boardIdx])});
+    },
+
+    insertLog : async (data) => {
+        console.log(data);
+        const result = await executor(query.INSERT_LOG, [data.user_id, data.board_idx, data.title, data.source, data.target, data.action]);
+        if (!result.affectedRows) throw new Error();
     }
 };
 

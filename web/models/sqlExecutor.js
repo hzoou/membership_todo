@@ -8,6 +8,7 @@ module.exports = async (query, values) => {
             await connection.commit();
             return results;
         } catch (e) {
+            console.log(e);
             await connection.rollback();
             return false;
         } finally {

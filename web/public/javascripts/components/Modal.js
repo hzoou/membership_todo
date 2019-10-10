@@ -1,7 +1,9 @@
 import { $, fetchAPI } from "../utils.js";
 
 class Modal {
-    constructor(list, title, target) {
+    constructor(list, title, target, userId, boardIdx) {
+        this.userId = userId;
+        this.boardIdx = boardIdx;
         this.list = list;
         this.title = title;
         this.idx = Object.values(target.dataset).pop();
@@ -54,7 +56,8 @@ class Modal {
 
     async clickSubmitButton() {
         if (this.title == this.textarea.value) return alert('변경된 사항이 없습니다.');
-        const res = await fetchAPI(`/api/board/${(this.list) ? 'list' : 'item'}`, 'PUT', { title: this.textarea.value, idx: this.idx });
+        const data = { user_id: this.userId, idx: this.idx, board_idx: this.boardIdx, item_idx: this.idx, title: this.textarea.value, source: null, target: null, action: 1 };
+        const res = await fetchAPI(`/api/board/${(this.list) ? 'list' : 'item'}`, 'PUT', { data: data });
         if (res.status == 'SUCCESS') return window.location.reload();
         alert(res.message);
     }

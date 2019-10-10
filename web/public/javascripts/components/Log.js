@@ -50,7 +50,13 @@ class Log {
     makeLog() {
         return Object.values(this.data).reduce((acc, cur) => {
             return acc + `<li class="activity">
-                            <span class="log-content"><a href="/board/${cur.user_id}">${cur.user_id}</a> ${this.getType(cur.action)} <strong>${cur.item_title}</strong> to <strong>${cur.target}</strong></span>
+                            <span class="log-content">
+                                <a href="/board/${cur.user_id}">${cur.user_id}</a>
+                                ${this.getType(cur.action)} 
+                                <strong>${cur.item_title}</strong> 
+                                ${(cur.source) ? `from <strong>${cur.source}</strong> ` : ''}
+                                ${(cur.target) ? `to <strong>${cur.target}</strong>` : ''}
+                            </span>
                             <span class="log-time">${getTime(cur.time)}</span>
                         </li>`;
         }, '');

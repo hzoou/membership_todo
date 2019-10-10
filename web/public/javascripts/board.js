@@ -43,8 +43,7 @@ class Board {
         this.addHandler = this.addItem.bind(this);
         this.adds.forEach((add) => add.addEventListener('click', this.addHandler));
         this.removes = $$('.item-remove');
-        this.removeHandler = this.removeItem.bind(this);
-        this.removes.forEach((remove) => remove.addEventListener('click', this.removeItem));
+        this.removes.forEach((remove) => remove.addEventListener('click', this.removeItem.bind(this)));
         this.titles = $$('.list-title');
         if (this.authentic) this.titles.forEach((title) => title.addEventListener('dblclick', this.editList.bind(this)));
         this.items = $$('.item');
@@ -123,7 +122,8 @@ class Board {
         this.textArea = e.target.parentNode.parentNode.firstElementChild;
         if (!this.textArea.textLength) return this.textArea.focus();
         this.value = this.textArea.value.split('.');
-        const res = await fetchAPI('/api/board/item', 'POST', { list_idx: this.listIdx, title: this.textArea.value });
+        const data = { user_id: this.userId, board_idx: this.boardIdx, list_idx: this.listIdx, title: this.textArea.value, source: null, target: this.listTitle, action: 0 };
+        const res = await fetchAPI('/api/board/item', 'POST', { data: data});
         if (res.status == "SUCCESS") return location.reload();
         alert(res.message);
     }
@@ -140,21 +140,22 @@ class Board {
 
     async removeItem(e) {
         this.remove = e.target;
-        this.remove.removeEventListener('click', this.removeHandler);
+        this.title = this.remove.parentNode.children[1].textContent;
         this.itemIdx = this.remove.parentNode.dataset.itemidx;
         this.confirm = confirm('선택하신 아이템을 삭제하시겠습니까?');
         if (!this.confirm) return;
-        const res = await fetchAPI('/api/board/item', 'DELETE', { item_idx: this.itemIdx });
+        const data = { user_id: this.userId, board_idx: this.boardIdx, item_idx: this.itemIdx, title: this.title, source: null, target: null, action: 3 };
+        const res = await fetchAPI('/api/board/item', 'DELETE', { data: data });
         if (res.status == "SUCCESS") return location.reload();
         alert(res.message);
     }
 
     editList(e) {
-        new Modal(true, e.target.textContent, e.target.parentNode.parentNode);
+        new Modal(true, e.target.textContent, e.target.parentNode.parentNode, this.userId, this.boardIdx);
     }
 
     editItem(e) {
-        new Modal(false, e.currentTarget.children[1].textContent, e.currentTarget);
+        new Modal(false, e.currentTarget.children[1].textContent, e.currentTarget, this.userId, this.boardIdx);
     }
 
     attachEventToDragAndDrop() {
