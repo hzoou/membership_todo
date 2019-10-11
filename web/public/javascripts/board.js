@@ -56,7 +56,7 @@ class Board {
     }
 
     listBodyTemplate(cur) {
-        return `<div class="item" draggable="true" data-itemidx="${cur.ITEM_idx}">
+        return `<div class="item" draggable="true" data-itemidx="${cur.ITEM_idx}" data-pos="${cur.pos}">
               <img class="note-img" draggable="false" src="/images/note.png">
               <div class="item-title" draggable="false" >${cur.ITEM_title}</div>
               ${ (this.authentic) ? '<div class="item-remove" draggable="false" >&times;</div>' : '' }
