@@ -55,26 +55,37 @@ class Board {
         if (this.authentic) this.attachEventToDragAndDrop();
     }
 
+    listBodyTemplate(cur) {
+        return `<div class="item" draggable="true" data-itemidx="${cur.ITEM_idx}">
+              <img class="note-img" draggable="false" src="/images/note.png">
+              <div class="item-title" draggable="false" >${cur.ITEM_title}</div>
+              ${ (this.authentic) ? '<div class="item-remove" draggable="false" >&times;</div>' : '' }
+          </div>`;
+    }
+
+    makeListBody(data) {
+        const reducer = (acc, cur) => {
+            if (cur.ITEM_idx) return acc + this.listBodyTemplate(cur);
+            return acc;
+        };
+        return this.listData[data].reduce(reducer,'');
+    }
+
+    listTemplate(data) {
+        return `<div class="list" data-listidx="${this.listData[data][0].LIST_idx}">
+                  <div class="list-header">
+                      <div class="list-cnt">${(this.listData[data][0].ITEM_idx) ? this.listData[data].length : 0}</div>
+                      <div class="list-title">${this.listData[data][0].LIST_title}</div>
+                      ${ (this.authentic) ? '<img class="list-add" src="/images/add.png"><img class="list-remove" src="/images/add.png">' : '' }
+                  </div>
+                  <div class="list-body">
+                      ${this.makeListBody(data)}
+                  </div>
+              </div>`
+    }
+
     makeList() {
-        return Object.keys(this.listData).reduce((acc, data) => {
-            return acc + `<div class="list" data-listidx="${this.listData[data][0].LIST_idx}">
-                    <div class="list-header">
-                        <div class="list-cnt">${(this.listData[data][0].ITEM_idx) ? this.listData[data].length : 0}</div>
-                        <div class="list-title">${this.listData[data][0].LIST_title}</div>
-                        ${ (this.authentic) ? '<img class="list-add" src="/images/add.png"><img class="list-remove" src="/images/add.png">' : '' }
-                    </div>
-                    <div class="list-body">
-                        ${this.listData[data].reduce((acc, cur) => {
-                                if (cur.ITEM_idx) return acc + `<div class="item" draggable="true" data-itemidx="${cur.ITEM_idx}" data-pos="${cur.pos}">
-                                                                    <img class="note-img" draggable="false" src="/images/note.png">
-                                                                    <div class="item-title" draggable="false" >${cur.ITEM_title}</div>
-                                                                    ${ (this.authentic) ? '<div class="item-remove" draggable="false" >&times;</div>' : '' }
-                                                                </div>`;
-                                return acc;
-                            }, '')}
-                    </div>
-                </div>`
-        }, '')
+        return Object.keys(this.listData).reduce((acc, data) => acc + this.listTemplate(data), '');
     }
 
     addItem(e) {
