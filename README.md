@@ -17,38 +17,59 @@
   |   └── 📄 www
   ├── 📂 database
   |   └── 📂 sql
-  |       └── 📄 init.sql
+  |       └── 📄 init-db.sql
   |   └── 📄 config.js
   |   └── 📄 connection.js
   ├── 📂 middlewares
-  |   └── 📄 isAdmin.js
-  |   └── 📄 isLoggedIn.js
+  |   └── 📄 auth.js
   |   └── 📄 passport.js
   |   └── 📄 session.js
   ├── 📂 models
   |   └── 📄 board.js
+  |   └── 📄 query.js
+  |   └── 📄 sqlExecutor.js
   |   └── 📄 user.js
   ├── 📂 public
   |   └── 📂 images
   |   └── 📂 javascripts
+  |       └── 📂 components
+  |           └── 📄 Log.js
+  |           └── 📄 Modal.js
+  |           └── 📄 Permission.js
   |       └── 📄 admin.js
+  |       └── 📄 board.js
+  |       └── 📄 mypage.js
+  |       └── 📄 signup.js
   |       └── 📄 utils.js
   |   └── 📂 stylesheets
   |       └── 📄 admin.css
+  |       └── 📄 board.css
   |       └── 📄 index.css
-  |       └── 📄 signin.css
+  |       └── 📄 log.css
+  |       └── 📄 modal.css
+  |       └── 📄 mypgae.css
+  |       └── 📄 sign.css
   ├── 📂 routes
-  |   └── 📄 admin.js
-  |   └── 📄 board.js
+  |   └── 📂 api
+  |       └── 📄 admin.js
+  |       └── 📄 board.js
+  |       └── 📄 mypgae.js
+  |       └── 📄 signin.js
+  |       └── 📄 signup.js
+  |   └── 📄 api.js
   |   └── 📄 index.js
-  |   └── 📄 signin.js
-  |   └── 📄 signup.js
-  ├── 📂 schema
-  |   └── 📄 query.js
   ├── 📂 views
+  |   └── 📂 layout
+  |       └── 📄 header.ejs
+  |       └── 📄 sign-form.ejs
+  |   └── 📂 link
+  |       └── 📄 head.ejs
   |   └── 📄 admin.ejs
+  |   └── 📄 board.ejs
+  |   └── 📄 board.ejs
   |   └── 📄 error.ejs
   |   └── 📄 index.ejs
+  |   └── 📄 mypage.ejs
   |   └── 📄 signin.ejs
   |   └── 📄 signup.ejs
   └── 📄 app.js
@@ -89,12 +110,23 @@
 > 관리자 페이지
 >
 ![](https://i.imgur.com/CdqOa54.png)
-> 보드 페이지 (진행중)
+> 보드 페이지 (읽기/편집 권한 있는 경우)
 >
-![](https://i.imgur.com/VybJdj5.png)
+![](https://i.imgur.com/1FQVL6O.png)
+> 보드 페이지 (읽기 권한 있는 경우)
+>
+![](https://i.imgur.com/vTNzUGe.png)
+> 보드 페이지 (권한이 없는 경우)
+>
+![](https://i.imgur.com/GGszrxL.png)
+> 마이 페이지 (내 보드에 권한 추가)
+>
+![](https://i.imgur.com/SC4VwMA.png)
+> 마이 페이지 (내가 권한이 있는 보드 목록)
+>
+![](https://i.imgur.com/xRkMiZl.png)
 
-
-### 🏠 [Homepage](https://github.com/hzoou/membership-todo#readme)
+### 🏠 [Homepage](http://210.89.190.77:3000)
 
 ## Install
 
@@ -102,10 +134,23 @@
 npm install
 ```
 
+## DB Setting
+
+```shell script
+mysql> source 경로/web/database/sql/init-db.sql
+```
+
 ## Start
 
 ```sh
 npm start
+```
+
+## Version
+```shell script
+npm 6.9.0
+node 10.16.3
+mysql 8.0.17
 ```
 
 ## Author
